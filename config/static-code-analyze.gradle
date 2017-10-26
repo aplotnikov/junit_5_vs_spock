@@ -1,0 +1,95 @@
+ext {
+    reportDirectory = "$project.buildDir/reports"
+}
+
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+}
+
+pmd {
+    toolVersion = '5.8.1'
+    sourceSets = [sourceSets.main]
+    ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            'java-codesize',
+            'java-empty',
+            'java-finalizers',
+            'java-strictexception',
+            'java-strings',
+            'java-sunsecure',
+            'java-typeresolution',
+            'java-unnecessary'
+    ]
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+findbugs {
+    sourceSets = [sourceSets.main]
+    effort = 'max'
+    reportLevel = 'low'
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+checkstyle {
+    toolVersion = '8.3'
+    sourceSets = [sourceSets.main]
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+codenarc {
+    toolVersion = '1.0'
+    sourceSets = [sourceSets.test]
+    configFile = rootProject.file 'config/codenarc/codenarc.groovy'
+}
+
+jacoco {
+    toolVersion = '0.7.9'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        html.enabled = true
+    }
+}
+
+pitest {
+    targetClasses = ['io.github.aplotnikov.*']
+    threads = 4
+}
+
+gradleLint {
+    criticalRules = [
+            'all-dependency',
+            'dependency-parentheses',
+            'archaic-wrapper',
+            'all-nebula-renames',
+            'duplicate-dependency-class',
+            'minimum-dependency-version',
+            'overridden-dependency-version'
+    ]
+}
