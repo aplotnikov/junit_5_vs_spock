@@ -47,3 +47,7 @@ jobs:
 
       - store_artifacts:
           path: ~/test-results
+
+      - run:
+          name: Send to CodeCov
+          command: bash <(curl -s https://codecov.io/bash)
