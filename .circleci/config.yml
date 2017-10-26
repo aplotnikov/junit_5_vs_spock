@@ -35,15 +35,15 @@ jobs:
             cp -R build/reports ~/reports/
           when: always
 
-#      - run:
-#          name: Save test results
-#          command: |
-#            mkdir -p ~/test-results/
-#            cp -R build/test-results ~/test-results/
-#          when: always
-#
-#      - store_test_results:
-#          path: ~/reports
-#
-#      - store_artifacts:
-#          path: ~/test-results
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/
+            cp -R build/test-results ~/test-results/
+          when: always
+
+      - store_test_results:
+          path: ~/reports
+
+      - store_artifacts:
+          path: ~/test-results
