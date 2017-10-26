@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ClientTest {
 
     @Test
+    @DisplayName("Client should have correct first name and second name - default assertion")
     void shouldHaveCorrectFirstNameAndSecondName() {
         // given
         String firstName = "Andrii";
@@ -21,6 +23,7 @@ class ClientTest {
     }
 
     @Test
+    @DisplayName("Client should have correct first name and second name - assertj assertion")
     void shouldHaveCorrectFirstNameAndSecondName2() {
         // given
         String firstName = "Andrii";
@@ -33,6 +36,7 @@ class ClientTest {
     }
 
     @Test
+    @DisplayName("Client should have correct first name and second name - assertAll default assertion")
     void shouldHaveCorrectFirstNameAndSecondName3() {
         // given
         String firstName = "Andrii";
