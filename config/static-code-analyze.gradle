@@ -48,8 +48,7 @@ tasks.withType(FindBugs) {
 }
 
 checkstyle {
-    toolVersion = '8.3'
-    sourceSets = [sourceSets.main]
+    toolVersion = '8.0'
 }
 
 tasks.withType(Checkstyle) {
@@ -80,16 +79,4 @@ jacocoTestReport {
 pitest {
     targetClasses = ['io.github.aplotnikov.*']
     threads = 4
-}
-
-gradleLint {
-    criticalRules = [
-            'all-dependency',
-            'dependency-parentheses',
-            'archaic-wrapper',
-            'all-nebula-renames',
-            'duplicate-dependency-class',
-            'minimum-dependency-version',
-            'overridden-dependency-version'
-    ]
 }

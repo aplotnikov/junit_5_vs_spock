@@ -11,7 +11,6 @@ plugins {
     id 'codenarc'
     id 'jacoco'
     id 'info.solidsoft.pitest' version '1.2.2'
-    id 'nebula.lint' version '8.3.1'
 }
 
 apply from: 'config/static-code-analyze.gradle'
@@ -29,6 +28,16 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
-dependencies {
+ext.junitJupiterVersion = '5.0.1'
 
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.12'
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+
+    testCompile 'org.assertj:assertj-core:3.8.0'
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+    testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
 }
