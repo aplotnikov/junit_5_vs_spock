@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.1'
+    }
+}
+
 plugins {
     id 'java'
     id 'groovy'
@@ -10,9 +19,9 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'jacoco'
-    id 'info.solidsoft.pitest' version '1.2.2'
 }
 
+apply plugin: 'org.junit.platform.gradle.plugin'
 apply from: 'config/static-code-analyze.gradle'
 
 repositories {
@@ -29,13 +38,27 @@ jar {
 }
 
 ext.junitJupiterVersion = '5.0.1'
+ext.junitVintageVersion = '4.12.1'
 
 dependencies {
+    // Spock + Groovy dependency
     testCompile 'org.codehaus.groovy:groovy-all:2.4.12'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    // Needs for launching Spock test into JUnit 5 platform
+    testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.1'
 
-    testCompile 'org.assertj:assertj-core:3.8.0'
+    // JUnit 5 dependency
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+    // To avoid compiler warnings about @API annotations in JUnit code
     testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
+
+    // JUnit 5 utilities
+    testCompile 'org.assertj:assertj-core:3.8.0'
+}
+
+junitPlatform {
+    filters {
+        includeClassNamePatterns '.*Test', '.*Spec'
+    }
 }
