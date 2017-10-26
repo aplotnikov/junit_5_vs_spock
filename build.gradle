@@ -31,8 +31,6 @@ jar {
 ext.junitJupiterVersion = '5.0.1'
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.16.18'
-
     testCompile 'org.codehaus.groovy:groovy-all:2.4.12'
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
 
