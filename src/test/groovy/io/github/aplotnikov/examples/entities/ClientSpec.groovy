@@ -31,11 +31,18 @@ class ClientSpec extends Specification {
             }
     }
 
-    void 'client should not have enough money to take loan'() {
+    void 'client should not have enough money to take a loan'() {
         when:
             client.takeLoan(10)
         then:
             IllegalStateException exception = thrown(IllegalStateException)
             exception.message == 'Client does not have enough money'
+    }
+
+    void 'client should have enough money to take a loan'() {
+        when:
+            client.takeLoan(1)
+        then:
+            noExceptionThrown()
     }
 }

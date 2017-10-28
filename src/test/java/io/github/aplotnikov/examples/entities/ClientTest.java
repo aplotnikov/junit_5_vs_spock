@@ -1,7 +1,9 @@
 package io.github.aplotnikov.examples.entities;
 
+import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
@@ -44,14 +46,14 @@ class ClientTest {
     }
 
     @Test
-    @DisplayName("Client should not have enough money to take loan")
+    @DisplayName("Client should not have enough money to take a loan")
     void shouldThrowIllegalStateException() {
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> client.takeLoan(TEN));
         assertThat(exception.getMessage()).isEqualTo("Client does not have enough money");
     }
 
     @Test
-    @DisplayName("Client should not have enough money to take loan - assertj assertion")
+    @DisplayName("Client should not have enough money to take a loan - assertj assertion")
     void shouldThrowIllegalStateException2() {
         Throwable exception = catchThrowable(() -> client.takeLoan(TEN));
         assertThat(exception)
@@ -60,7 +62,7 @@ class ClientTest {
     }
 
     @Test
-    @DisplayName("Client should not have enough money to take loan - assertj assertion")
+    @DisplayName("Client should not have enough money to take a loan - assertj assertion")
     void shouldThrowIllegalStateException3() {
         assertThatThrownBy(() -> client.takeLoan(TEN))
                 .isInstanceOf(IllegalStateException.class)
@@ -68,10 +70,16 @@ class ClientTest {
     }
 
     @Test
-    @DisplayName("Client should not have enough money to take loan - assertj assertion")
+    @DisplayName("Client should not have enough money to take a loan - assertj assertion")
     void shouldThrowIllegalStateException4() {
         assertThatExceptionOfType(IllegalStateException.class)
                 .isThrownBy(() -> client.takeLoan(TEN))
                 .withMessage("Client does not have enough money");
+    }
+
+    @Test
+    @DisplayName("Client should have enough money to take a loan - assertj assertion")
+    void shouldNotThrowIllegalStateException4() {
+        assertThatCode(() -> client.takeLoan(ONE)).doesNotThrowAnyException();
     }
 }

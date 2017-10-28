@@ -1,5 +1,7 @@
 package io.github.aplotnikov.examples.entities;
 
+import static java.math.BigDecimal.TEN;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -23,7 +25,9 @@ public class Client {
     }
 
     public void takeLoan(BigDecimal amount) {
-        throw new IllegalStateException("Client does not have enough money");
+        if (amount.compareTo(TEN) > -1) {
+            throw new IllegalStateException("Client does not have enough money");
+        }
     }
 
     @Override
