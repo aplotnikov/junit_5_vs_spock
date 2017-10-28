@@ -1,16 +1,22 @@
 package io.github.aplotnikov.examples.entities
 
+import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Subject
 
 class ClientSpec extends Specification {
 
+    @Shared
+    String firstName = 'Andrii'
+
+    @Shared
+    String secondName = 'Plotnikov'
+
+    @Subject
+    Client client = new Client(firstName, secondName)
+
     void 'client should have correct first name and second name'() {
-        given:
-            String firstName = 'Andrii'
-            String secondName = 'Plotnikov'
-        when:
-            Client client = new Client(firstName, secondName)
-        then:
+        expect:
             with(client) {
                 it.firstName == firstName
                 it.secondName == secondName
@@ -18,16 +24,18 @@ class ClientSpec extends Specification {
     }
 
     void 'client should have correct first name and second name 2'() {
-        given:
-            String firstName = 'Andrii'
-            String secondName = 'Plotnikov'
-        when:
-            Client client = new Client(firstName, secondName)
-        then:
+        expect:
             verifyAll {
                 client.firstName == firstName
                 client.secondName == secondName
             }
     }
 
+    void 'client should not have enough money to take loan'() {
+        when:
+            client.takeLoan(10)
+        then:
+            IllegalStateException exception = thrown(IllegalStateException)
+            exception.message == 'Client does not have enough money'
+    }
 }

@@ -1,5 +1,6 @@
 package io.github.aplotnikov.examples.entities;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Client {
@@ -19,6 +20,10 @@ public class Client {
 
     public String getSecondName() {
         return secondName;
+    }
+
+    public void takeLoan(BigDecimal amount) {
+        throw new IllegalStateException("Client does not have enough money");
     }
 
     @Override
