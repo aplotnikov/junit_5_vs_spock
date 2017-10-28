@@ -4,7 +4,9 @@ import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
+import spock.lang.Title
 
+@Title('Unit test for client entity')
 class ClientSpec extends Specification {
 
     @Shared
