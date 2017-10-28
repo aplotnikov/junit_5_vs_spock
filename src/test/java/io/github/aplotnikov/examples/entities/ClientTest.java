@@ -2,6 +2,8 @@ package io.github.aplotnikov.examples.entities;
 
 import static java.math.BigDecimal.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,5 +57,21 @@ class ClientTest {
         assertThat(exception)
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("Client does not have enough money");
+    }
+
+    @Test
+    @DisplayName("Client should not have enough money to take loan - assertj assertion")
+    void shouldThrowIllegalStateException3() {
+        assertThatThrownBy(() -> client.takeLoan(TEN))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Client does not have enough money");
+    }
+
+    @Test
+    @DisplayName("Client should not have enough money to take loan - assertj assertion")
+    void shouldThrowIllegalStateException4() {
+        assertThatExceptionOfType(IllegalStateException.class)
+                .isThrownBy(() -> client.takeLoan(TEN))
+                .withMessage("Client does not have enough money");
     }
 }
