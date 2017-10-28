@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Unit tests for client entity")
 class ClientTest {
 
     private static final String FIRST_NAME = "Andrii";
