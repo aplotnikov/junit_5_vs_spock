@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -81,5 +82,12 @@ class ClientTest {
     @DisplayName("Client should have enough money to take a loan - assertj assertion")
     void shouldNotThrowIllegalStateException4() {
         assertThatCode(() -> client.takeLoan(ONE)).doesNotThrowAnyException();
+    }
+
+    @Test
+    @Disabled
+    @DisplayName("Test should be ignored")
+    void shouldIgnoreTest() {
+        throw new IllegalStateException("This test should be not launched");
     }
 }

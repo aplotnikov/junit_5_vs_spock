@@ -1,5 +1,6 @@
 package io.github.aplotnikov.examples.entities
 
+import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
@@ -44,5 +45,11 @@ class ClientSpec extends Specification {
             client.takeLoan(1)
         then:
             noExceptionThrown()
+    }
+
+    @Ignore
+    void 'test should be ignored'() {
+        expect:
+            throw new IllegalStateException('This test should be not launched')
     }
 }
