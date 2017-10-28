@@ -2,6 +2,7 @@ package io.github.aplotnikov.examples.entities;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
+import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -98,5 +100,11 @@ class ClientTest {
     @DisplayName("Client should have correct e-mail addresses")
     void shouldHaveCorrectEmails() {
         assertLinesMatch(asList("test@gmail.com", "test2@gmail.com"), client.getEmails());
+    }
+
+    @Test
+    @DisplayName("Client should pay in max 2 seconds")
+    void shouldPayDuringTwoSeconds() {
+        assertTimeout(ofSeconds(2), () -> client.pay(TEN));
     }
 }

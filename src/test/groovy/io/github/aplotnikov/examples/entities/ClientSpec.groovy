@@ -4,6 +4,7 @@ import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
+import spock.lang.Timeout
 import spock.lang.Title
 
 @Title('Unit test for client entity')
@@ -58,5 +59,11 @@ class ClientSpec extends Specification {
     void 'client should have correct e-mail addresses'() {
         expect:
             client.emails == ['test@gmail.com', 'test2@gmail.com']
+    }
+
+    @Timeout(2)
+    void 'client should pay in max 2 seconds'() {
+        expect:
+            client.pay(10)
     }
 }
