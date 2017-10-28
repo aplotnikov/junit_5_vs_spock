@@ -18,9 +18,11 @@ class Client {
         if (amount >= TEN) {
             throw new IllegalStateException('Client does not have enough money')
         }
+        println "Client took loan with principal $amount"
     }
 
     void pay(BigDecimal amount) {
         sleep SECONDS.toMillis(1)
+        println "Client paid $amount"
     }
 }

@@ -1,5 +1,8 @@
 package io.github.aplotnikov.examples.entities
 
+import static java.math.BigDecimal.ONE
+import static java.math.BigDecimal.TEN
+
 import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
@@ -37,7 +40,7 @@ class ClientSpec extends Specification {
 
     void 'client should not have enough money to take a loan'() {
         when:
-            client.takeLoan(10)
+            client.takeLoan(TEN)
         then:
             IllegalStateException exception = thrown(IllegalStateException)
             exception.message == 'Client does not have enough money'
@@ -45,7 +48,7 @@ class ClientSpec extends Specification {
 
     void 'client should have enough money to take a loan'() {
         when:
-            client.takeLoan(1)
+            client.takeLoan(ONE)
         then:
             noExceptionThrown()
     }
@@ -64,6 +67,6 @@ class ClientSpec extends Specification {
     @Timeout(2)
     void 'client should pay in max 2 seconds'() {
         expect:
-            client.pay(10)
+            client.pay(TEN)
     }
 }
