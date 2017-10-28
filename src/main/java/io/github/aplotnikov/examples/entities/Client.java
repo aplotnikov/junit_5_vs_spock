@@ -3,6 +3,7 @@ package io.github.aplotnikov.examples.entities;
 import static java.math.BigDecimal.TEN;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 public class Client {
@@ -11,9 +12,12 @@ public class Client {
 
     private final String secondName;
 
-    public Client(String firstName, String secondName) {
+    private final List<String> emails;
+
+    public Client(String firstName, String secondName, List<String> emails) {
         this.firstName = firstName;
         this.secondName = secondName;
+        this.emails = emails;
     }
 
     public String getFirstName() {
@@ -22,6 +26,10 @@ public class Client {
 
     public String getSecondName() {
         return secondName;
+    }
+
+    public List<String> getEmails() {
+        return emails;
     }
 
     public void takeLoan(BigDecimal amount) {

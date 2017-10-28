@@ -16,7 +16,7 @@ class ClientSpec extends Specification {
     String secondName = 'Plotnikov'
 
     @Subject
-    Client client = new Client(firstName, secondName)
+    Client client = new Client(firstName, secondName, ['test@gmail.com', 'test2@gmail.com'])
 
     void 'client should have correct first name and second name'() {
         expect:
@@ -53,5 +53,10 @@ class ClientSpec extends Specification {
     void 'test should be ignored'() {
         expect:
             throw new IllegalStateException('This test should be not launched')
+    }
+
+    void 'client should have correct e-mail addresses'() {
+        expect:
+            client.emails == ['test@gmail.com', 'test2@gmail.com']
     }
 }

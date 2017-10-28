@@ -2,6 +2,7 @@ package io.github.aplotnikov.examples.entities;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -9,6 +10,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Disabled;
@@ -22,7 +24,7 @@ class ClientTest {
 
     private static final String SECOND_NAME = "Plotnikov";
 
-    private Client client = new Client(FIRST_NAME, SECOND_NAME);
+    private Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
 
     @Test
     @DisplayName("Client should have correct first name and second name - default assertion")
@@ -90,5 +92,11 @@ class ClientTest {
     @DisplayName("Test should be ignored")
     void shouldIgnoreTest() {
         throw new IllegalStateException("This test should be not launched");
+    }
+
+    @Test
+    @DisplayName("Client should have correct e-mail addresses")
+    void shouldHaveCorrectEmails() {
+        assertLinesMatch(asList("test@gmail.com", "test2@gmail.com"), client.getEmails());
     }
 }
