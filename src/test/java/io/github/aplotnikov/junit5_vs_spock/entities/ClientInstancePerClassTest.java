@@ -23,7 +23,7 @@ class ClientInstancePerClassTest {
 
     private static final String SECOND_NAME = "Plotnikov";
 
-    private final Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
+    private Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
 
     @Test
     @DisplayName("Client should have status unknown after creation")

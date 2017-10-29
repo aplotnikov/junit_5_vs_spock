@@ -2,7 +2,6 @@ package io.github.aplotnikov.junit5_vs_spock.entities;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
-import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -13,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -56,9 +54,10 @@ class ClientTest {
     }
 
     @Test
-    @DisplayName("Client should pay in max 2 seconds")
-    void shouldPayDuringTwoSeconds() {
-        assertTimeout(ofSeconds(2), () -> client.pay(TEN));
+    @DisplayName("Client should have correct first name and second name - default assertion")
+    void shouldHaveCorrectFirstNameAndSecondName() {
+        assertEquals(FIRST_NAME, client.getFirstName());
+        assertEquals(SECOND_NAME, client.getSecondName());
     }
 
     @Nested
@@ -73,13 +72,6 @@ class ClientTest {
         @AfterEach
         void tearDown() {
             System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
-        }
-
-        @Test
-        @DisplayName("Client should have correct first name and second name - default assertion")
-        void shouldHaveCorrectFirstNameAndSecondName() {
-            assertEquals(FIRST_NAME, client.getFirstName());
-            assertEquals(SECOND_NAME, client.getSecondName());
         }
 
         @Test

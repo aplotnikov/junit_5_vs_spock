@@ -40,7 +40,7 @@ class Client {
     }
 
     void takeLoan(BigDecimal amount) {
-        if (!isIdentified()) {
+        if (!identified) {
             throw new IllegalStateException(
                     "In order to take a lona client should have status identified. Current status is $status"
             )
@@ -54,7 +54,12 @@ class Client {
     }
 
     void pay(BigDecimal amount) {
-        sleep SECONDS.toMillis(1)
+        SECONDS.sleep 1
         println "Client paid $amount"
+    }
+
+    void payIdentificationFee() {
+        pay 0.1
+        identify()
     }
 }
