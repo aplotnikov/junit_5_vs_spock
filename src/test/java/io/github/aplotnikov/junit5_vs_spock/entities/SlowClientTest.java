@@ -70,16 +70,20 @@ class SlowClientTest {
     @Test
     @DisplayName("Client should pay identification fee in max 2 seconds - awaitility")
     void shouldPayIdentificationFeeDuringTwoSecondsWithAwaitility() {
-        start(() -> await().atMost(TWO_SECONDS).untilAsserted(() -> assertThat(client.isIdentified()).isTrue()));
+        startPaymentOfIdentificationFee(() ->
+                await().atMost(TWO_SECONDS).untilAsserted(() -> assertThat(client.isIdentified()).isTrue())
+        );
     }
 
     @Test
     @DisplayName("Client should pay identification fee in max 2 seconds - awaitility 2")
     void shouldPayIdentificationFeeDuringTwoSecondsWithAwaitility2() {
-        start(() -> await().atMost(TWO_SECONDS).until(client::isIdentified));
+        startPaymentOfIdentificationFee(
+                () -> await().atMost(TWO_SECONDS).until(client::isIdentified)
+        );
     }
 
-    private void start(Runnable operation) {
+    private void startPaymentOfIdentificationFee(Runnable operation) {
         ExecutorService executorService = newSingleThreadScheduledExecutor();
         try {
             executorService.submit(client::payIdentificationFee);
