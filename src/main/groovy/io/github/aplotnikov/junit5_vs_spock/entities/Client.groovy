@@ -6,9 +6,9 @@ import static io.github.aplotnikov.junit5_vs_spock.entities.Status.UNKNOWN
 import static java.math.BigDecimal.TEN
 import static java.util.concurrent.TimeUnit.SECONDS
 
-import groovy.transform.Canonical
+import groovy.transform.Immutable
 
-@Canonical
+@Immutable
 class Client {
 
     String firstName

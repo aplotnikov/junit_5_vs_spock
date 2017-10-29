@@ -38,8 +38,10 @@ ext.junitJupiterVersion = '5.0.1'
 ext.junitVintageVersion = '4.12.1'
 
 dependencies {
-    // Spock + Groovy dependency
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
+    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.2.2'
+
+    // Spock + Groovy dependency
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
     // Needs for launching Spock test into JUnit 5 platform
     testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.1'

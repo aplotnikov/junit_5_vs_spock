@@ -24,7 +24,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("When entity is created")
+import nl.jqno.equalsverifier.EqualsVerifier;
+
+@DisplayName("Unit tests for Client entity")
 class ClientTest {
 
     private static final String FIRST_NAME = "Andrii";
@@ -54,51 +56,66 @@ class ClientTest {
     }
 
     @Test
-    @DisplayName("Client should have correct first name and second name - default assertion")
-    void shouldHaveCorrectFirstNameAndSecondName() {
-        assertEquals(FIRST_NAME, client.getFirstName());
-        assertEquals(SECOND_NAME, client.getSecondName());
-    }
-
-    @Test
-    @DisplayName("Client should have correct first name and second name - assertj assertion")
-    void shouldHaveCorrectFirstNameAndSecondName2() {
-        assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
-        assertThat(client.getSecondName()).isEqualTo(SECOND_NAME);
-    }
-
-    @Test
-    @DisplayName("Client should have correct first name and second name - assertAll default assertion")
-    void shouldHaveCorrectFirstNameAndSecondName3() {
-        assertAll(
-                () -> assertThat(client.getFirstName()).isEqualTo(FIRST_NAME),
-                () -> assertThat(client.getSecondName()).isEqualTo(SECOND_NAME)
-        );
-    }
-
-    @Test
-    @DisplayName("Client should have status unknown after creation")
-    void shouldBeUnknown() {
-        assertThat(client.isUnknown()).isTrue();
-    }
-
-    @Test
-    @Disabled
-    @DisplayName("Test should be ignored")
-    void shouldIgnoreTest() {
-        throw new IllegalStateException("This test should be not launched");
-    }
-
-    @Test
-    @DisplayName("Client should have correct e-mail addresses")
-    void shouldHaveCorrectEmails() {
-        assertLinesMatch(asList("test@gmail.com", "test2@gmail.com"), client.getEmails());
-    }
-
-    @Test
     @DisplayName("Client should pay in max 2 seconds")
     void shouldPayDuringTwoSeconds() {
         assertTimeout(ofSeconds(2), () -> client.pay(TEN));
+    }
+
+    @Nested
+    @DisplayName("When entity is created")
+    class DefaultStateTest {
+
+        @BeforeEach
+        void setUp() {
+            System.out.println("Test into " + getClass().getSimpleName() + " class is prepared");
+        }
+
+        @AfterEach
+        void tearDown() {
+            System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
+        }
+
+        @Test
+        @DisplayName("Client should have correct first name and second name - default assertion")
+        void shouldHaveCorrectFirstNameAndSecondName() {
+            assertEquals(FIRST_NAME, client.getFirstName());
+            assertEquals(SECOND_NAME, client.getSecondName());
+        }
+
+        @Test
+        @DisplayName("Client should have correct first name and second name - assertj assertion")
+        void shouldHaveCorrectFirstNameAndSecondName2() {
+            assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
+            assertThat(client.getSecondName()).isEqualTo(SECOND_NAME);
+        }
+
+        @Test
+        @DisplayName("Client should have correct first name and second name - assertAll default assertion")
+        void shouldHaveCorrectFirstNameAndSecondName3() {
+            assertAll(
+                    () -> assertThat(client.getFirstName()).isEqualTo(FIRST_NAME),
+                    () -> assertThat(client.getSecondName()).isEqualTo(SECOND_NAME)
+            );
+        }
+
+        @Test
+        @DisplayName("Client should have status unknown after creation")
+        void shouldBeUnknown() {
+            assertThat(client.isUnknown()).isTrue();
+        }
+
+        @Test
+        @Disabled
+        @DisplayName("Test should be ignored")
+        void shouldIgnoreTest() {
+            throw new IllegalStateException("This test should be not launched");
+        }
+
+        @Test
+        @DisplayName("Client should have correct e-mail addresses")
+        void shouldHaveCorrectEmails() {
+            assertLinesMatch(asList("test@gmail.com", "test2@gmail.com"), client.getEmails());
+        }
     }
 
     @Nested
@@ -112,7 +129,7 @@ class ClientTest {
         }
 
         @AfterEach
-        void tearDownTest() {
+        void tearDown() {
             System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
         }
 
@@ -143,7 +160,7 @@ class ClientTest {
             }
 
             @AfterEach
-            void tearDownTest() {
+            void tearDown() {
                 System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
             }
 
@@ -190,6 +207,29 @@ class ClientTest {
             void shouldNotThrowIllegalStateException4() {
                 assertThatCode(() -> client.takeLoan(ONE)).doesNotThrowAnyException();
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("Entity convention tests")
+    class EntityConventionTest {
+
+        @BeforeEach
+        void setUp() {
+            System.out.println("Test into " + getClass().getSimpleName() + " class is prepared");
+        }
+
+        @AfterEach
+        void tearDown() {
+            System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
+        }
+
+        @Test
+        @DisplayName("Entity should follow equal and hashcode convention")
+        void shouldFollowEqualAndHashCodeConvention() {
+            EqualsVerifier.forClass(Client.class)
+                    .withIgnoredFields("status")
+                    .verify();
         }
     }
 }

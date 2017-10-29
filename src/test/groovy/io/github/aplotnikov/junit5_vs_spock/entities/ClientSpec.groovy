@@ -3,6 +3,7 @@ package io.github.aplotnikov.junit5_vs_spock.entities
 import static java.math.BigDecimal.ONE
 import static java.math.BigDecimal.TEN
 
+import nl.jqno.equalsverifier.EqualsVerifier
 import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
@@ -90,5 +91,12 @@ class ClientSpec extends Specification {
     void 'client should pay in max 2 seconds'() {
         expect:
             client.pay(TEN)
+    }
+
+    void 'client should follow equal and hashcode convention'() {
+        expect:
+            EqualsVerifier.forClass(Client)
+                    .withIgnoredFields('status')
+                    .verify()
     }
 }
