@@ -1,4 +1,4 @@
-package io.github.aplotnikov.examples.entities;
+package io.github.aplotnikov.junit5_vs_spock.entities;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;

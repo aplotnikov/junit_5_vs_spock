@@ -1,8 +1,8 @@
-package io.github.aplotnikov.examples.entities
+package io.github.aplotnikov.junit5_vs_spock.entities
 
-import static io.github.aplotnikov.examples.entities.Status.IDENTIFIED
-import static io.github.aplotnikov.examples.entities.Status.REGISTERED
-import static io.github.aplotnikov.examples.entities.Status.UNKNOWN
+import static io.github.aplotnikov.junit5_vs_spock.entities.Status.IDENTIFIED
+import static io.github.aplotnikov.junit5_vs_spock.entities.Status.REGISTERED
+import static io.github.aplotnikov.junit5_vs_spock.entities.Status.UNKNOWN
 import static java.math.BigDecimal.TEN
 import static java.util.concurrent.TimeUnit.SECONDS
 
