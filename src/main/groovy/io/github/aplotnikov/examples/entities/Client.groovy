@@ -1,5 +1,8 @@
 package io.github.aplotnikov.examples.entities
 
+import static io.github.aplotnikov.examples.entities.Status.IDENTIFIED
+import static io.github.aplotnikov.examples.entities.Status.REGISTERED
+import static io.github.aplotnikov.examples.entities.Status.UNKNOWN
 import static java.math.BigDecimal.TEN
 import static java.util.concurrent.TimeUnit.SECONDS
 
@@ -14,10 +17,39 @@ class Client {
 
     List<String> emails
 
+    private Status status = UNKNOWN
+
+    boolean isUnknown() {
+        status == UNKNOWN
+    }
+
+    boolean isRegistered() {
+        status == REGISTERED
+    }
+
+    void register() {
+        status = REGISTERED
+    }
+
+    boolean isIdentified() {
+        status == IDENTIFIED
+    }
+
+    void identify() {
+        status = IDENTIFIED
+    }
+
     void takeLoan(BigDecimal amount) {
+        if (!isIdentified()) {
+            throw new IllegalStateException(
+                    "In order to take a lona client should have status identified. Current status is $status"
+            )
+        }
+
         if (amount >= TEN) {
             throw new IllegalStateException('Client does not have enough money')
         }
+
         println "Client took loan with principal $amount"
     }
 

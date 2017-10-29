@@ -38,7 +38,27 @@ class ClientSpec extends Specification {
             }
     }
 
+    void 'client should be not able to take a loan when he has unknown status'() {
+        when:
+            client.takeLoan(TEN)
+        then:
+            IllegalStateException exception = thrown(IllegalStateException)
+            exception.message == 'In order to take a lona client should have status identified. Current status is UNKNOWN'
+    }
+
+    void 'client should be not able to take a loan when he has registered status'() {
+        given:
+            client.register()
+        when:
+            client.takeLoan(TEN)
+        then:
+            IllegalStateException exception = thrown(IllegalStateException)
+            exception.message == 'In order to take a lona client should have status identified. Current status is REGISTERED'
+    }
+
     void 'client should not have enough money to take a loan'() {
+        given:
+            client.identify()
         when:
             client.takeLoan(TEN)
         then:
@@ -47,6 +67,8 @@ class ClientSpec extends Specification {
     }
 
     void 'client should have enough money to take a loan'() {
+        given:
+            client.identify()
         when:
             client.takeLoan(ONE)
         then:

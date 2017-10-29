@@ -15,18 +15,43 @@ import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("Unit tests for client entity")
+@DisplayName("When entity is created")
 class ClientTest {
 
     private static final String FIRST_NAME = "Andrii";
 
     private static final String SECOND_NAME = "Plotnikov";
 
-    private Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
+    private final Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
+
+    @BeforeAll
+    static void setUpClass() {
+        System.out.println("Main class is prepared");
+    }
+
+    @AfterAll
+    static void tearDownClass() {
+        System.out.println("Main class is cleaned");
+    }
+
+    @BeforeEach
+    void setUpTest() {
+        System.out.println("Test into " + getClass().getSimpleName() + " class is prepared");
+    }
+
+    @AfterEach
+    void tearDownTest() {
+        System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
+    }
 
     @Test
     @DisplayName("Client should have correct first name and second name - default assertion")
@@ -52,41 +77,9 @@ class ClientTest {
     }
 
     @Test
-    @DisplayName("Client should not have enough money to take a loan")
-    void shouldThrowIllegalStateException() {
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> client.takeLoan(TEN));
-        assertThat(exception.getMessage()).isEqualTo("Client does not have enough money");
-    }
-
-    @Test
-    @DisplayName("Client should not have enough money to take a loan - assertj assertion")
-    void shouldThrowIllegalStateException2() {
-        Throwable exception = catchThrowable(() -> client.takeLoan(TEN));
-        assertThat(exception)
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Client does not have enough money");
-    }
-
-    @Test
-    @DisplayName("Client should not have enough money to take a loan - assertj assertion")
-    void shouldThrowIllegalStateException3() {
-        assertThatThrownBy(() -> client.takeLoan(TEN))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Client does not have enough money");
-    }
-
-    @Test
-    @DisplayName("Client should not have enough money to take a loan - assertj assertion")
-    void shouldThrowIllegalStateException4() {
-        assertThatExceptionOfType(IllegalStateException.class)
-                .isThrownBy(() -> client.takeLoan(TEN))
-                .withMessage("Client does not have enough money");
-    }
-
-    @Test
-    @DisplayName("Client should have enough money to take a loan - assertj assertion")
-    void shouldNotThrowIllegalStateException4() {
-        assertThatCode(() -> client.takeLoan(ONE)).doesNotThrowAnyException();
+    @DisplayName("Client should have status unknown after creation")
+    void shouldBeUnknown() {
+        assertThat(client.isUnknown()).isTrue();
     }
 
     @Test
@@ -106,5 +99,97 @@ class ClientTest {
     @DisplayName("Client should pay in max 2 seconds")
     void shouldPayDuringTwoSeconds() {
         assertTimeout(ofSeconds(2), () -> client.pay(TEN));
+    }
+
+    @Nested
+    @DisplayName("When registration is completed")
+    class RegistrationTest {
+
+        @BeforeEach
+        void setUp() {
+            System.out.println("Test into " + getClass().getSimpleName() + " class is prepared");
+            client.register();
+        }
+
+        @AfterEach
+        void tearDownTest() {
+            System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
+        }
+
+        @Test
+        @DisplayName("Client should have status registered")
+        void shouldBeRegistered() {
+            assertThat(client.isRegistered()).isTrue();
+        }
+
+        @Test
+        @DisplayName("Client should be not able to take a loan - IllegalStateException is thrown")
+        void shouldBeNotAbleToTakeALoan() {
+            assertThatThrownBy(() -> client.takeLoan(TEN))
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage(
+                            "In order to take a lona client should have status identified. Current status is REGISTERED"
+                    );
+        }
+
+        @Nested
+        @DisplayName("When identification is completed")
+        class IdentificationTest {
+
+            @BeforeEach
+            void setUp() {
+                System.out.println("Test into " + getClass().getSimpleName() + " class is prepared");
+                client.identify();
+            }
+
+            @AfterEach
+            void tearDownTest() {
+                System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
+            }
+
+            @Test
+            @DisplayName("Client should have status identified")
+            void shouldBeIdentified() {
+                assertThat(client.isIdentified()).isTrue();
+            }
+
+            @Test
+            @DisplayName("Client should not have enough money to take a loan")
+            void shouldThrowIllegalStateException() {
+                IllegalStateException exception = assertThrows(IllegalStateException.class, () -> client.takeLoan(TEN));
+                assertThat(exception.getMessage()).isEqualTo("Client does not have enough money");
+            }
+
+            @Test
+            @DisplayName("Client should not have enough money to take a loan - assertj assertion")
+            void shouldThrowIllegalStateException2() {
+                Throwable exception = catchThrowable(() -> client.takeLoan(TEN));
+                assertThat(exception)
+                        .isInstanceOf(IllegalStateException.class)
+                        .hasMessage("Client does not have enough money");
+            }
+
+            @Test
+            @DisplayName("Client should not have enough money to take a loan - assertj assertion")
+            void shouldThrowIllegalStateException3() {
+                assertThatThrownBy(() -> client.takeLoan(TEN))
+                        .isInstanceOf(IllegalStateException.class)
+                        .hasMessage("Client does not have enough money");
+            }
+
+            @Test
+            @DisplayName("Client should not have enough money to take a loan - assertj assertion")
+            void shouldThrowIllegalStateException4() {
+                assertThatExceptionOfType(IllegalStateException.class)
+                        .isThrownBy(() -> client.takeLoan(TEN))
+                        .withMessage("Client does not have enough money");
+            }
+
+            @Test
+            @DisplayName("Client should have enough money to take a loan - assertj assertion")
+            void shouldNotThrowIllegalStateException4() {
+                assertThatCode(() -> client.takeLoan(ONE)).doesNotThrowAnyException();
+            }
+        }
     }
 }
