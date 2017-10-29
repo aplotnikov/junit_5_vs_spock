@@ -3,6 +3,7 @@ package io.github.aplotnikov.junit5_vs_spock.entities
 import static java.math.BigDecimal.TEN
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor
 
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Timeout
@@ -13,6 +14,9 @@ import java.util.concurrent.ExecutorService
 
 class SlowClientSpec extends Specification {
 
+    @Shared
+    int acceptableTimeout = 2
+
     @Subject
     Client client = new Client('Andrii', 'Plotnikov', ['test@gmail.com', 'test2@gmail.com'])
 
@@ -22,7 +26,7 @@ class SlowClientSpec extends Specification {
             client.pay(TEN)
     }
 
-    void 'client should pay identification fee in max 2 second'() {
+    void 'client should pay identification fee in max 2 second with async conditions'() {
         given:
             AsyncConditions conditions = new AsyncConditions()
         when:
@@ -32,12 +36,12 @@ class SlowClientSpec extends Specification {
                 }
             }
         then:
-            conditions.await(2)
+            conditions.await acceptableTimeout
     }
 
-    void 'client should pay identification fee in max 2 second - 2'() {
+    void 'client should pay identification fee in max 2 second with polling conditions'() {
         given:
-            PollingConditions conditions = new PollingConditions(timeout: 2)
+            PollingConditions conditions = new PollingConditions(timeout: acceptableTimeout)
         when:
             startPaymentOfIdentificationFee()
         then:
@@ -47,7 +51,7 @@ class SlowClientSpec extends Specification {
     }
 
     private void startPaymentOfIdentificationFee() {
-        startPaymentOfIdentificationFee {}
+        startPaymentOfIdentificationFee { }
     }
 
     private void startPaymentOfIdentificationFee(Closure<?> callback) {
