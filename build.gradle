@@ -59,6 +59,12 @@ dependencies {
 
 junitPlatform {
     filters {
+        tags {
+//            Configuration of enabling and disabling tests by tag name
+//            include 'fast', 'smoke'
+//            exclude 'slow'
+        }
+
         includeClassNamePatterns '.*Test', '.*Spec'
     }
 }
