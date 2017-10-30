@@ -5,9 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ClientWithAssumptionTest {
+@DisplayName("Unit test with examples of using assumption")
+class ClientWithAssumptionTest {
 
     private static final String FIRST_NAME = "Andrii";
 
@@ -16,6 +18,7 @@ public class ClientWithAssumptionTest {
     private final Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
 
     @Test
+    @DisplayName("Test should be skipped when OS is Windows - assumeTrue method")
     void shouldSkipTestWhenOsIsWindows() {
         assumeTrue(
                 System.getProperty("os.name").startsWith("Windows"),
@@ -27,7 +30,8 @@ public class ClientWithAssumptionTest {
     }
 
     @Test
-    void shouldSkipTestWhenOsIsMac() {
+    @DisplayName("Test should be skipped when OS is Mac OS - assumeTrue method")
+    void shouldSkipTestWhenOsIsMacOs() {
         assumeTrue(
                 System.getProperty("os.name").startsWith("Mac OS"),
                 () -> "Aborting test: test was launched on Mac OS"
@@ -38,6 +42,7 @@ public class ClientWithAssumptionTest {
     }
 
     @Test
+    @DisplayName("Test should be skipped when OS is Linux - assumeTrue method")
     void shouldSkipTestWhenOsIsLinux() {
         assumeTrue(
                 System.getProperty("os.name").startsWith("Linux"),
@@ -49,6 +54,7 @@ public class ClientWithAssumptionTest {
     }
 
     @Test
+    @DisplayName("Test should be skipped when OS is Windows - assumingThat method")
     void shouldSkipTestWhenOsIsWindows2() {
         assumingThat(
                 System.getProperty("os.name").startsWith("Windows"),
@@ -63,6 +69,7 @@ public class ClientWithAssumptionTest {
     }
 
     @Test
+    @DisplayName("Test should be skipped when OS is Mac OS - assumingThat method")
     void shouldSkipTestWhenOsIsMac2() {
         assumingThat(
                 System.getProperty("os.name").startsWith("Mac OS"),
@@ -77,6 +84,7 @@ public class ClientWithAssumptionTest {
     }
 
     @Test
+    @DisplayName("Test should be skipped when OS is Linux - assumingThat method")
     void shouldSkipTestWhenOsIsLinux2() {
         assumingThat(
                 System.getProperty("os.name").startsWith("Linux"),
