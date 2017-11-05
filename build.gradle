@@ -38,19 +38,20 @@ ext.junitJupiterVersion = '5.0.1'
 ext.junitVintageVersion = '4.12.1'
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.12',
-            'io.vavr:vavr:0.9.1'
+    compile 'io.vavr:vavr:0.9.1'
+
     testCompile 'nl.jqno.equalsverifier:equalsverifier:2.2.2'
 
     // Spock + Groovy dependency
-    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.12',
+            'org.spockframework:spock-core:1.1-groovy-2.4'
     // Needs for launching Spock test into JUnit 5 platform
     testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.1'
 
     // JUnit 5 dependency
-    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}",
+            "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
-    testRuntime "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
     // To avoid compiler warnings about @API annotations in JUnit code
     testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
 

@@ -7,6 +7,7 @@ ruleset {
     ruleset('rulesets/dry.xml') {
         DuplicateStringLiteral(enabled: false)
         DuplicateListLiteral(enabled: false)
+        DuplicateNumberLiteral(enabled: false)
     }
     ruleset('rulesets/enhanced.xml')
     ruleset('rulesets/formatting.xml') {

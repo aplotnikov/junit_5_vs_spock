@@ -22,6 +22,6 @@ tasks.withType(Checkstyle) {
 
 codenarc {
     toolVersion = '1.0'
-    sourceSets = [sourceSets.main, sourceSets.test]
+    sourceSets = [sourceSets.test]
     configFile = rootProject.file 'config/codenarc/codenarc.groovy'
 }

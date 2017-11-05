@@ -2,7 +2,6 @@ package io.github.aplotnikov.junit5_vs_spock.entities
 
 import static java.math.BigDecimal.ONE
 import static java.math.BigDecimal.TEN
-import static nl.jqno.equalsverifier.Warning.STRICT_INHERITANCE
 
 import nl.jqno.equalsverifier.EqualsVerifier
 import spock.lang.Ignore
@@ -75,8 +74,8 @@ class ClientSpec extends Specification {
     void 'client should follow equal and hashcode convention'() {
         expect:
             EqualsVerifier.forClass(Client)
+                    .usingGetClass()
                     .withIgnoredFields('status')
-                    .suppress(STRICT_INHERITANCE)
                     .verify()
     }
 
