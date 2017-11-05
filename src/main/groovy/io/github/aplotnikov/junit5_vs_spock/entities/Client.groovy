@@ -6,18 +6,26 @@ import static io.github.aplotnikov.junit5_vs_spock.entities.Status.UNKNOWN
 import static java.math.BigDecimal.TEN
 import static java.util.concurrent.TimeUnit.SECONDS
 
-import groovy.transform.Immutable
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
-@Immutable
+@ToString(includeNames = true)
+@EqualsAndHashCode(excludes = ['status'])
 class Client {
 
-    String firstName
+    final String firstName
 
-    String secondName
+    final String secondName
 
-    List<String> emails
+    final List<String> emails
 
     private Status status = UNKNOWN
+
+    Client(String firstName, String secondName, List<String> emails) {
+        this.firstName = firstName
+        this.secondName = secondName
+        this.emails = emails
+    }
 
     boolean isUnknown() {
         status == UNKNOWN

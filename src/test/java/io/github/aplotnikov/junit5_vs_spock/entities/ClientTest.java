@@ -3,6 +3,7 @@ package io.github.aplotnikov.junit5_vs_spock.entities;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static java.util.Arrays.asList;
+import static nl.jqno.equalsverifier.Warning.STRICT_INHERITANCE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -221,6 +222,7 @@ class ClientTest {
         void shouldFollowEqualAndHashCodeConvention() {
             EqualsVerifier.forClass(Client.class)
                     .withIgnoredFields("status")
+                    .suppress(STRICT_INHERITANCE)
                     .verify();
         }
     }
