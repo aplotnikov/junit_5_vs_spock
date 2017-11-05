@@ -12,4 +12,12 @@ public class Loan {
         this.amount = amount;
         this.term = term;
     }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public Term getTerm() {
+        return term;
+    }
 }
