@@ -68,6 +68,7 @@ junitPlatform {
 //            Configuration of enabling and disabling tests by tag name
 //            include 'fast', 'smoke'
 //            exclude 'slow'
+            exclude 'failed'
         }
 
         includeClassNamePatterns '.*Test', '.*Spec'

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -58,6 +59,13 @@ class ClientTest {
     void shouldHaveCorrectFirstNameAndSecondName() {
         assertEquals(FIRST_NAME, client.getFirstName());
         assertEquals(SECOND_NAME, client.getSecondName());
+    }
+
+    @Tag("failed")
+    @Test
+    @DisplayName("Test should not fail when tag is marked as excluded")
+    void shouldNotFailWhenTagIsExcluded() {
+        throw new IllegalStateException("This exception should be not thrown");
     }
 
     @Nested
