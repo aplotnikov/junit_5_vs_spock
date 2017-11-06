@@ -3,6 +3,7 @@ package io.github.aplotnikov.junit5_vs_spock.entities
 import static java.math.BigDecimal.ONE
 import static java.math.BigDecimal.TEN
 
+import io.github.aplotnikov.junit5_vs_spock.annotations.Failed
 import nl.jqno.equalsverifier.EqualsVerifier
 import spock.lang.Ignore
 import spock.lang.Shared
@@ -122,5 +123,11 @@ class ClientSpec extends Specification {
             client.takeLoan(ONE)
         then:
             noExceptionThrown()
+    }
+
+    @Failed
+    void 'test should not fail when it is excluded by annotation'() {
+        expect:
+            throw new IllegalStateException('Test should not fail')
     }
 }
