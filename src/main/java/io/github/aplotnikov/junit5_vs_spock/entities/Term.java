@@ -35,4 +35,9 @@ public class Term {
     public boolean isGreaterThan(Term anotherTerm) {
         return days > anotherTerm.days;
     }
+
+    @Override
+    public String toString() {
+        return "Term{days=" + days + '}';
+    }
 }
