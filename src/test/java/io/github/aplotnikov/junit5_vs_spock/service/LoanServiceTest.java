@@ -7,7 +7,9 @@ import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
+import static java.util.stream.IntStream.range;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 
 import java.math.BigDecimal;
@@ -15,6 +17,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -34,7 +38,7 @@ class LoanServiceTest {
     private LoanService service = new LoanService();
 
     private static IntStream amounts() {
-        return IntStream.range(-3, 0);
+        return range(-3, 0);
     }
 
     private static Stream<Arguments> amountAndTerm() {
@@ -168,5 +172,21 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError()).isEqualTo(message);
+    }
+
+    @DisplayName("Dynamic test examples")
+    @TestFactory
+    Stream<DynamicTest> dynamicTests() {
+        return range(-3, 0)
+                .mapToObj(BigDecimal::valueOf)
+                .map(amount -> new Application(amount, days(30)))
+                .map(application -> dynamicTest(
+                        "Application should not pass validation when amount is less than zero", () -> {
+                            Validation<String, Loan> result = service.create(application);
+
+                            assertThat(result.isInvalid()).isTrue();
+                            assertThat(result.getError()).startsWith("Application amount is less than zero. Provided amount is ");
+                        })
+                );
     }
 }
