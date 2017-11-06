@@ -23,6 +23,7 @@ ruleset {
     ruleset('rulesets/unnecessary.xml') {
         UnnecessaryBooleanExpression(enabled: false)
         UnnecessaryGetter(enabled: false)
+        UnnecessaryPackageReference(enabled: false) // It was changed because of bug in codenarc
     }
     ruleset('rulesets/unused.xml') {
         UnusedObject(enabled: false)
