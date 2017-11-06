@@ -1,0 +1,2 @@
+0,30,"Application amount is less than zero. Provided amount is 0"
+10,1000,"Application term is bigger than 3 months. Provided term is 1000 days"

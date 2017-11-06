@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -133,7 +134,7 @@ class LoanServiceTest {
     @DisplayName("Application should not pass validation (method source with arguments) when")
     @ParameterizedTest(name = "{index} ==> amount is {0} and term is {1}")
     @MethodSource("amountAndTerm")
-    void shouldApplicationNotPassValidationWithExcludedUnits(BigDecimal amount, Term term, String message) {
+    void shouldApplicationNotPassValidation(BigDecimal amount, Term term, String message) {
         Application application = new Application(amount, term);
 
         Validation<String, Loan> result = service.create(application);
@@ -148,7 +149,19 @@ class LoanServiceTest {
             "0, 30, 'Application amount is less than zero. Provided amount is 0'",
             "10, 1000, 'Application term is bigger than 3 months. Provided term is 1000 days'"
     })
-    void shouldApplicationNotPassValidationWithExcludedUnits(int amount, int term, String message) {
+    void shouldApplicationNotPassValidation(int amount, int term, String message) {
+        Application application = new Application(BigDecimal.valueOf(amount), days(term));
+
+        Validation<String, Loan> result = service.create(application);
+
+        assertThat(result.isInvalid()).isTrue();
+        assertThat(result.getError()).isEqualTo(message);
+    }
+
+    @DisplayName("Application should not pass validation (cvs file source) when")
+    @ParameterizedTest(name = "{index} ==> amount is {0} and term is {1}")
+    @CsvFileSource(resources = "test_data.csv")
+    void shouldApplicationNotPassValidationWithCsvFileSource(int amount, int term, String message) {
         Application application = new Application(BigDecimal.valueOf(amount), days(term));
 
         Validation<String, Loan> result = service.create(application);
