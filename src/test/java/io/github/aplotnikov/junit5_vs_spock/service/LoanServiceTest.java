@@ -9,10 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 
 import java.math.BigDecimal;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import io.github.aplotnikov.junit5_vs_spock.entities.Application;
@@ -24,7 +26,11 @@ class LoanServiceTest {
 
     private LoanService service = new LoanService();
 
-    @DisplayName("Application should not pass validation when")
+    private static IntStream amounts() {
+        return IntStream.range(-3, 0);
+    }
+
+    @DisplayName("Application should not pass validation (string value source) when")
     @ParameterizedTest(name = "{index} ==> amount is {0}")
     @ValueSource(strings = { "-1", "0" })
     void shouldApplicationNotPassValidation(String amount) {
@@ -37,7 +43,20 @@ class LoanServiceTest {
                 .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
     }
 
-    @DisplayName("Application should not pass validation when")
+    @DisplayName("Application should not pass validation (method int source) when")
+    @ParameterizedTest(name = "{index} ==> amount is {0}")
+    @MethodSource("amounts")
+    void shouldApplicationNotPassValidationWithMethodSource(int amount) {
+        Application application = new Application(BigDecimal.valueOf(amount), days(30));
+
+        Validation<String, Loan> result = service.create(application);
+
+        assertThat(result.isInvalid()).isTrue();
+        assertThat(result.getError())
+                .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
+    }
+
+    @DisplayName("Application should not pass validation (int value source) when")
     @ParameterizedTest(name = "{index} ==> amount is {0}")
     @ValueSource(ints = { -1, 0 })
     void shouldApplicationNotPassValidation(int amount) {
@@ -50,7 +69,7 @@ class LoanServiceTest {
                 .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
     }
 
-    @DisplayName("Application should not pass validation when")
+    @DisplayName("Application should not pass validation (enum source) when")
     @ParameterizedTest(name = "{index} ==> term date unit is {0}")
     @EnumSource(DateUnit.class)
     void shouldApplicationNotPassValidation(DateUnit unit) {
@@ -66,7 +85,7 @@ class LoanServiceTest {
                 );
     }
 
-    @DisplayName("Application should not pass validation when")
+    @DisplayName("Application should not pass validation (enum source with includes) when")
     @ParameterizedTest(name = "{index} ==> term date unit is {0}")
     @EnumSource(value = DateUnit.class, names = { "DAY", "MONTH" })
     void shouldApplicationNotPassValidationWithProvidedUnits(DateUnit unit) {
@@ -82,7 +101,7 @@ class LoanServiceTest {
                 );
     }
 
-    @DisplayName("Application should not pass validation when")
+    @DisplayName("Application should not pass validation (enum source with excludes) when")
     @ParameterizedTest(name = "{index} ==> term date unit is {0}")
     @EnumSource(value = DateUnit.class, mode = EXCLUDE, names = { "DAY", "MONTH" })
     void shouldApplicationNotPassValidationWithExcludedUnits(DateUnit unit) {
