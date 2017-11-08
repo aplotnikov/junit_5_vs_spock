@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -164,7 +165,7 @@ class ClientTest {
                 System.out.println("Test into " + getClass().getSimpleName() + " class is cleaned");
             }
 
-            @Test
+            @RepeatedTest(10)
             @DisplayName("Client should have status identified")
             void shouldBeIdentified() {
                 assertThat(client.isIdentified()).isTrue();
