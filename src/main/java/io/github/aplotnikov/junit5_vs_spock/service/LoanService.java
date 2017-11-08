@@ -1,6 +1,7 @@
 package io.github.aplotnikov.junit5_vs_spock.service;
 
 import static io.github.aplotnikov.junit5_vs_spock.entities.Term.months;
+import static io.vavr.control.Validation.combine;
 import static java.math.BigDecimal.ZERO;
 import static java.util.stream.Collectors.joining;
 
@@ -11,6 +12,7 @@ import java.util.function.Predicate;
 import io.github.aplotnikov.junit5_vs_spock.entities.Application;
 import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
 import io.github.aplotnikov.junit5_vs_spock.entities.Term;
+import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
 import io.vavr.collection.Seq;
 import io.vavr.control.Option;
 import io.vavr.control.Validation;
@@ -19,11 +21,18 @@ public class LoanService {
 
     private static final Term MAX_TERM = months(3);
 
+    private final LoanRepository repository;
+
+    public LoanService(LoanRepository repository) {
+        this.repository = repository;
+    }
+
     public Validation<String, Loan> create(Application application) {
-        return Validation.combine(
+        return combine(
                 validateAmount(application.getAmount()),
                 validateTerm(application.getTerm())
         ).ap(Loan::new)
+                .map(repository::save)
                 .mapError(collectErrors());
     }
 

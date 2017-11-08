@@ -11,14 +11,20 @@ import static java.util.stream.IntStream.range;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -26,16 +32,20 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mock;
 
 import io.github.aplotnikov.junit5_vs_spock.entities.Application;
 import io.github.aplotnikov.junit5_vs_spock.entities.DateUnit;
 import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
 import io.github.aplotnikov.junit5_vs_spock.entities.Term;
+import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
 import io.vavr.control.Validation;
+import name.falgout.jeffrey.testing.junit5.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class LoanServiceTest {
 
-    private LoanService service = new LoanService();
+    private LoanService service;
 
     private static IntStream amounts() {
         return range(-3, 0);
@@ -46,6 +56,13 @@ class LoanServiceTest {
                 Arguments.of(ZERO, days(30), "Application amount is less than zero. Provided amount is 0"),
                 Arguments.of(TEN, years(1), "Application term is bigger than 3 months. Provided term is 365 days")
         );
+    }
+
+    @BeforeEach
+    void setUp(@Mock LoanRepository repository) {
+        when(repository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        service = new LoanService(repository);
     }
 
     @DisplayName("Application should not pass validation (string value source) when")
@@ -188,5 +205,23 @@ class LoanServiceTest {
                             assertThat(result.getError()).startsWith("Application amount is less than zero. Provided amount is ");
                         })
                 );
+    }
+
+    @Test
+    @DisplayName("Application should pass validation")
+    void shouldApplicationPassValidationAndSave(@Mock Application application) {
+        // given
+        given(application.getAmount()).willReturn(TEN);
+        given(application.getTerm()).willReturn(days(30));
+
+        //when
+        Validation<String, Loan> result = service.create(application);
+
+        //then
+        assertThat(result.isValid()).isTrue();
+
+        Loan loan = result.get();
+        assertThat(loan.getAmount()).isEqualTo(application.getAmount());
+        assertThat(loan.getTerm()).isEqualTo(application.getTerm());
     }
 }

@@ -5,6 +5,7 @@ import static io.github.aplotnikov.junit5_vs_spock.entities.Term.years
 
 import io.github.aplotnikov.junit5_vs_spock.entities.Application
 import io.github.aplotnikov.junit5_vs_spock.entities.Loan
+import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository
 import io.vavr.control.Validation
 import spock.lang.Specification
 import spock.lang.Subject
@@ -13,8 +14,10 @@ import spock.lang.Unroll
 @Unroll
 class LoanServiceSpec extends Specification {
 
+    LoanRepository repository = Mock()
+
     @Subject
-    LoanService service = new LoanService()
+    LoanService service = new LoanService(repository)
 
     void 'application should not pass validation when amount is #amount and term is #term'() {
         given:
@@ -26,6 +29,8 @@ class LoanServiceSpec extends Specification {
                 invalid
                 error == violation
             }
+        and:
+            0 * _
         where:
             amount | term     || violation
             0      | days(30) || 'Application amount is less than zero. Provided amount is 0'
@@ -44,5 +49,9 @@ class LoanServiceSpec extends Specification {
                 amount == application.amount
                 term == application.term
             }
+        and:
+            1 * repository.save(_ as Loan) >> { Loan loan -> loan }
+        and:
+            0 * _
     }
 }
