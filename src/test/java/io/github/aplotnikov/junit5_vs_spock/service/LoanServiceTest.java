@@ -220,8 +220,6 @@ class LoanServiceTest {
         //then
         assertThat(result.isValid()).isTrue();
 
-        Loan loan = result.get();
-        assertThat(loan.getAmount()).isEqualTo(application.getAmount());
-        assertThat(loan.getTerm()).isEqualTo(application.getTerm());
+        assertThat(result.get()).isEqualToComparingOnlyGivenFields(application, "amount", "term");
     }
 }
