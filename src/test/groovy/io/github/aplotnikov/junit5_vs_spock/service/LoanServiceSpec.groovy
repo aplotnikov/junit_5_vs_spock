@@ -50,7 +50,9 @@ class LoanServiceSpec extends Specification {
                 term == application.term
             }
         and:
-            1 * repository.save(_ as Loan) >> { Loan loan -> loan }
+            with(repository) {
+                1 * save(_ as Loan) >> { Loan loan -> loan }
+            }
         and:
             0 * _
     }
