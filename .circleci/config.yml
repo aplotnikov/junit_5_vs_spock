@@ -43,7 +43,7 @@ jobs:
           when: always
 
       - store_test_results:
-          path: ~/reports
+          path: ~/test-results
 
       - store_artifacts:
-          path: ~/test-results
+          path: ~/reports
