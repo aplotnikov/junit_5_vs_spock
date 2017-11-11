@@ -8,10 +8,12 @@ import nl.jqno.equalsverifier.EqualsVerifier
 import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Stepwise
 import spock.lang.Subject
 import spock.lang.Title
 
 @Title('Unit test for client entity')
+@Stepwise
 class ClientSpec extends Specification {
 
     @Shared
