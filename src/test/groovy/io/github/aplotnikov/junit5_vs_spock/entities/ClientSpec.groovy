@@ -48,7 +48,7 @@ class ClientSpec extends Specification {
             }
     }
 
-    void 'client should have correct first name and second name 2'() {
+    void 'client should have correct first name and second name - verify all'() {
         expect:
             verifyAll {
                 client.firstName == firstName
