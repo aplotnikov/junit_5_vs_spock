@@ -117,6 +117,12 @@ class ClientTest {
         void shouldHaveCorrectEmails() {
             assertLinesMatch(asList("test@gmail.com", "test2@gmail.com"), client.getEmails());
         }
+
+        @Test
+        @DisplayName("Client should have correct e-mail addresses - assertj")
+        void shouldHaveCorrectEmails2() {
+            assertThat(client.getEmails()).isEqualTo(asList("test@gmail.com", "test2@gmail.com"));
+        }
     }
 
     @Nested
