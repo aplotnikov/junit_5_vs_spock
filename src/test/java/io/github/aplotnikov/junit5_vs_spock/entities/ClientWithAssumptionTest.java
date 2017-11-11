@@ -54,7 +54,7 @@ class ClientWithAssumptionTest {
     }
 
     @Test
-    @DisplayName("Test should be skipped when OS is Windows - assumingThat method")
+    @DisplayName("Part of test should be skipped when OS is not Windows - assumingThat method")
     void shouldSkipTestWhenOsIsWindows2() {
         assumingThat(
                 System.getProperty("os.name").startsWith("Windows"),
@@ -69,7 +69,7 @@ class ClientWithAssumptionTest {
     }
 
     @Test
-    @DisplayName("Test should be skipped when OS is Mac OS - assumingThat method")
+    @DisplayName("Part of test should be skipped when OS is not Mac OS - assumingThat method")
     void shouldSkipTestWhenOsIsMac2() {
         assumingThat(
                 System.getProperty("os.name").startsWith("Mac OS"),
@@ -84,7 +84,7 @@ class ClientWithAssumptionTest {
     }
 
     @Test
-    @DisplayName("Test should be skipped when OS is Linux - assumingThat method")
+    @DisplayName("Part of test should be skipped when OS is not Linux - assumingThat method")
     void shouldSkipTestWhenOsIsLinux2() {
         assumingThat(
                 System.getProperty("os.name").startsWith("Linux"),
