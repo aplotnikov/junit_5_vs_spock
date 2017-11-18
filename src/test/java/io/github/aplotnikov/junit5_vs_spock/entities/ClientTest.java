@@ -211,7 +211,7 @@ class ClientTest {
 
             @Test
             @DisplayName("Client should have enough money to take a loan - assertj assertion")
-            void shouldNotThrowIllegalStateException4() {
+            void shouldNotThrowIllegalStateException() {
                 assertThatCode(() -> client.takeLoan(ONE)).doesNotThrowAnyException();
             }
         }
