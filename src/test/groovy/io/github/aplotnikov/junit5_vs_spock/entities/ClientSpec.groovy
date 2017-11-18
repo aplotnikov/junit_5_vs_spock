@@ -17,14 +17,14 @@ import spock.lang.Title
 class ClientSpec extends Specification {
 
     @Shared
-    String firstName = 'Andrii'
+    String clientFirstName = 'Andrii'
 
     @Shared
-    String secondName = 'Plotnikov'
+    String clientSecondName = 'Plotnikov'
 
     @Subject
     @Shared
-    Client client = new Client(firstName, secondName, ['test@gmail.com', 'test2@gmail.com'])
+    Client client = new Client(clientFirstName, clientSecondName, ['test@gmail.com', 'test2@gmail.com'])
 
     void setupSpec() {
         println 'Specification is prepared'
@@ -45,16 +45,16 @@ class ClientSpec extends Specification {
     void 'client should have correct first name and second name'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 
     void 'client should have correct first name and second name - verify all'() {
         expect:
             verifyAll {
-                client.firstName == firstName
-                client.secondName == secondName
+                client.firstName == clientFirstName
+                client.secondName == clientSecondName
             }
     }
 

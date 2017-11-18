@@ -10,21 +10,21 @@ import spock.lang.Subject
 class ClientWithTestConditionsSpec extends Specification {
 
     @Shared
-    String firstName = 'Andrii'
+    String clientFirstName = 'Andrii'
 
     @Shared
-    String secondName = 'Plotnikov'
+    String clientSecondName = 'Plotnikov'
 
     @Subject
-    Client client = new Client(firstName, secondName, ['test@gmail.com', 'test2@gmail.com'])
+    Client client = new Client(clientFirstName, clientSecondName, ['test@gmail.com', 'test2@gmail.com'])
 
     @See('spock.util.environment.OperatingSystem')
     @Requires({ os.windows })
     void 'test should be ignored when OS is not Windows'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 
@@ -33,8 +33,8 @@ class ClientWithTestConditionsSpec extends Specification {
     void 'test should be ignored when OS is not Linux'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 
@@ -43,8 +43,8 @@ class ClientWithTestConditionsSpec extends Specification {
     void 'test should be ignored when OS is not Mac OS'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 
@@ -53,8 +53,8 @@ class ClientWithTestConditionsSpec extends Specification {
     void 'test should be ignored when OS is Windows'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 
@@ -63,8 +63,8 @@ class ClientWithTestConditionsSpec extends Specification {
     void 'test should be ignored when OS is Linux'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 
@@ -73,8 +73,8 @@ class ClientWithTestConditionsSpec extends Specification {
     void 'test should be ignored when OS is Mac OS'() {
         expect:
             with(client) {
-                it.firstName == firstName
-                it.secondName == secondName
+                firstName == clientFirstName
+                secondName == clientSecondName
             }
     }
 }
