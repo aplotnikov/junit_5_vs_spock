@@ -3,7 +3,6 @@ package io.github.aplotnikov.junit5_vs_spock.service;
 import static io.github.aplotnikov.junit5_vs_spock.entities.Term.days;
 import static io.github.aplotnikov.junit5_vs_spock.entities.Term.term;
 import static io.github.aplotnikov.junit5_vs_spock.entities.Term.years;
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
@@ -69,7 +68,7 @@ class LoanServiceTest {
     @ParameterizedTest(name = "{index} ==> amount is {0}")
     @ValueSource(strings = { "-1", "0" })
     void shouldApplicationNotPassValidation(String amount) {
-        Application application = new Application(BigDecimal.valueOf(parseInt(amount)), days(30));
+        Application application = new Application(new BigDecimal(amount), days(30));
 
         Validation<String, Loan> result = service.create(application);
 
