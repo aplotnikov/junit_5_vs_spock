@@ -36,7 +36,7 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
-ext.junitJupiterVersion = '5.0.1'
+ext.junitJupiterVersion = '5.0.3'
 ext.junitVintageVersion = '5.2.0'
 
 dependencies {
