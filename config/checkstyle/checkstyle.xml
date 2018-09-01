@@ -3,10 +3,6 @@
         "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 <module name="Checker">
-    <module name="SuppressionCommentFilter">
-        <property name="offCommentFormat" value="CHECKSTYLE:OFF"/>
-        <property name="onCommentFormat" value="CHECKSTYLE:ON"/>
-    </module>
 
     <module name="RegexpSingleline">
         <property name="format" value="serialVersionUID"/>
@@ -25,7 +21,6 @@
     <module name="FileTabCharacter"/>
 
     <module name="TreeWalker">
-        <module name="FileContentsHolder"/>
         <!-- Block Checks -->
         <module name="EmptyBlock"/>
         <module name="LeftCurly"/>
@@ -143,5 +138,8 @@
         <module name="OperatorWrap"/>
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
+
+        <module name="MissingSwitchDefault"/>
+        <module name="FallThrough"/>
     </module>
 </module>
