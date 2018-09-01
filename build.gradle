@@ -45,8 +45,8 @@ dependencies {
     testCompile 'nl.jqno.equalsverifier:equalsverifier:2.5.2'
 
     // Spock + Groovy dependency
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.12',
-            'org.spockframework:spock-core:1.1-groovy-2.4'
+    testCompile 'org.codehaus.groovy:groovy-all:2.5.2',
+            'org.spockframework:spock-core:1.2-RC1-groovy-2.5'
     // Needs for launching Spock test into JUnit 5 platform
     testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.1'
 
