@@ -14,6 +14,7 @@ ruleset {
         ClassJavadoc(enabled: false)
         SpaceAroundMapEntryColon(enabled: false)
         LineLength(enabled: false)
+        Indentation(enabled: false)
     }
     ruleset('rulesets/generic.xml')
     ruleset('rulesets/groovyism.xml')
