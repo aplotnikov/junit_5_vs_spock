@@ -10,7 +10,7 @@ test {
 }
 
 pmd {
-    toolVersion = '6.6.0'
+    toolVersion = '6.7.0'
     sourceSets = [sourceSets.main]
     ruleSets = [
             'java-basic',
