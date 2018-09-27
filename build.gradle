@@ -36,8 +36,7 @@ jar {
     version = '0.0.1-SNAPSHOT'
 }
 
-ext.junitJupiterVersion = '5.2.0'
-ext.junitVintageVersion = '5.2.0'
+ext.junitVersion = '5.3.1'
 
 dependencies {
     compile 'io.vavr:vavr:0.9.2'
@@ -48,12 +47,12 @@ dependencies {
     testCompile 'org.codehaus.groovy:groovy-all:2.5.2',
             'org.spockframework:spock-core:1.2-groovy-2.5'
     // Needs for launching Spock test into JUnit 5 platform
-    testRuntime "org.junit.vintage:junit-vintage-engine:${junitVintageVersion}"
+    testRuntime "org.junit.vintage:junit-vintage-engine:${junitVersion}"
 
     // JUnit 5 dependency
-    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}",
-            "org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+            "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     // To avoid compiler warnings about @API annotations in JUnit code
     testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
 
