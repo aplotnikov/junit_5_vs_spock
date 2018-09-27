@@ -1,23 +1,12 @@
 package io.github.aplotnikov.junit5_vs_spock.service;
 
-import static io.github.aplotnikov.junit5_vs_spock.entities.Term.days;
-import static io.github.aplotnikov.junit5_vs_spock.entities.Term.term;
-import static io.github.aplotnikov.junit5_vs_spock.entities.Term.years;
-import static java.lang.String.format;
-import static java.math.BigDecimal.TEN;
-import static java.math.BigDecimal.ZERO;
-import static java.util.stream.IntStream.range;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-
-import java.math.BigDecimal;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
+import io.github.aplotnikov.junit5_vs_spock.entities.Application;
+import io.github.aplotnikov.junit5_vs_spock.entities.DateUnit;
+import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
+import io.github.aplotnikov.junit5_vs_spock.entities.Term;
+import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
+import io.vavr.control.Validation;
+import name.falgout.jeffrey.testing.junit.mockito.MockitoExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -33,13 +22,23 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 
-import io.github.aplotnikov.junit5_vs_spock.entities.Application;
-import io.github.aplotnikov.junit5_vs_spock.entities.DateUnit;
-import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
-import io.github.aplotnikov.junit5_vs_spock.entities.Term;
-import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
-import io.vavr.control.Validation;
-import name.falgout.jeffrey.testing.junit5.MockitoExtension;
+import java.math.BigDecimal;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static io.github.aplotnikov.junit5_vs_spock.entities.Term.days;
+import static io.github.aplotnikov.junit5_vs_spock.entities.Term.term;
+import static io.github.aplotnikov.junit5_vs_spock.entities.Term.years;
+import static java.lang.String.format;
+import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.ZERO;
+import static java.util.stream.IntStream.range;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class LoanServiceTest {
