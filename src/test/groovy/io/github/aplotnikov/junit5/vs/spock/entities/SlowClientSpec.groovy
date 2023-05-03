@@ -5,6 +5,7 @@ import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor
 
 import java.util.concurrent.ExecutorService
 
+import io.github.aplotnikov.junit5.vs.spock.annotations.Slow
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Subject
@@ -20,14 +21,14 @@ class SlowClientSpec extends Specification {
     @Subject
     Client client = new Client('Andrii', 'Plotnikov', ['test@gmail.com', 'test2@gmail.com'])
 
-    @io.github.aplotnikov.junit5.vs.spock.annotations.Slow
+    @Slow
     @Timeout(2)
     void 'client should pay in max 2 seconds'() {
         expect:
             client.pay(TEN)
     }
 
-    @io.github.aplotnikov.junit5.vs.spock.annotations.Slow
+    @Slow
     void 'client should pay identification fee in max 2 second with async conditions'() {
         given:
             AsyncConditions conditions = new AsyncConditions()
@@ -41,7 +42,7 @@ class SlowClientSpec extends Specification {
             conditions.await acceptableTimeout
     }
 
-    @io.github.aplotnikov.junit5.vs.spock.annotations.Slow
+    @Slow
     void 'client should pay identification fee in max 2 second with polling conditions'() {
         given:
             PollingConditions conditions = new PollingConditions(timeout: acceptableTimeout)

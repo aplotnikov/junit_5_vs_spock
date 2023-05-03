@@ -86,7 +86,7 @@ class ClientSpec extends Specification {
         when:
             client.takeLoan(TEN)
         then:
-            IllegalStateException exception = thrown(IllegalStateException)
+            IllegalStateException exception = thrown()
             exception.message == 'In order to take a lona client should have status identified. Current status is UNKNOWN'
     }
 
@@ -101,7 +101,7 @@ class ClientSpec extends Specification {
         when:
             client.takeLoan(TEN)
         then:
-            IllegalStateException exception = thrown(IllegalStateException)
+            IllegalStateException exception = thrown()
             exception.message == 'In order to take a lona client should have status identified. Current status is REGISTERED'
     }
 
@@ -116,7 +116,7 @@ class ClientSpec extends Specification {
         when:
             client.takeLoan(TEN)
         then:
-            IllegalStateException exception = thrown(IllegalStateException)
+            IllegalStateException exception = thrown()
             exception.message == 'Client does not have enough money'
     }
 
