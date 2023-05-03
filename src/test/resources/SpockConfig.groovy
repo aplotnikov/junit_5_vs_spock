@@ -1,4 +1,4 @@
-import io.github.aplotnikov.junit5_vs_spock.annotations.Failed
+import io.github.aplotnikov.junit5.vs.spock.annotations.Failed
 //import io.github.aplotnikov.junit5_vs_spock.annotations.Slow
 
 runner {
