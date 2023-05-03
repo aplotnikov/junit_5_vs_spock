@@ -4,7 +4,7 @@
 
 This repository is created for education reason.
 
-The technology stack: Java 8, Groovy, Gradle, JUnit 5.3.1, Spock 1.2,
+The technology stack: Java 17, Groovy, Gradle, JUnit 5.9.3, Spock 2.3,
 Vavr, Assertj, awaitutility, mockito,
 Static code analyzers (codenarc, checkstyle, PMD, Google Find bugs)
 
