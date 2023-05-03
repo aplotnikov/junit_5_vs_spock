@@ -56,4 +56,5 @@ class LoanServiceSpec extends Specification {
         and:
             0 * _
     }
+
 }

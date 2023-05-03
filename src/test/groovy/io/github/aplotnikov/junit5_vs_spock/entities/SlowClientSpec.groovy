@@ -67,4 +67,5 @@ class SlowClientSpec extends Specification {
             executorService.shutdown()
         }
     }
+
 }

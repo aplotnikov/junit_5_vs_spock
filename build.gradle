@@ -15,8 +15,7 @@ plugins {
     id 'build-dashboard'
 
     id 'pmd'
-    id 'findbugs'
-    id 'checkstyle'
+//    id 'checkstyle'
     id 'codenarc'
 }
 
@@ -27,41 +26,41 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
 
-jar {
-    baseName = 'junit_5_vs_spock'
-    group = 'io.github.aplotnikov'
-    version = '0.0.1-SNAPSHOT'
-}
+group = 'io.github.aplotnikov'
+version = '0.0.1-SNAPSHOT'
 
-ext.junitVersion = '5.3.1'
+ext.junitVersion = '5.9.3'
 
 dependencies {
-    compile 'io.vavr:vavr:0.9.2'
+    implementation('io.vavr:vavr:0.10.4')
 
-    testCompile 'nl.jqno.equalsverifier:equalsverifier:2.5.2'
+    testImplementation('nl.jqno.equalsverifier:equalsverifier:2.5.2')
 
     // Spock + Groovy dependency
-    testCompile 'org.codehaus.groovy:groovy-all:2.5.2',
-            'org.spockframework:spock-core:1.2-groovy-2.5'
-    // Needs for launching Spock test into JUnit 5 platform
-    testRuntime "org.junit.vintage:junit-vintage-engine:${junitVersion}"
+    testImplementation(
+        'org.codehaus.groovy:groovy:3.0.17',
+        'org.spockframework:spock-core:2.3-groovy-3.0',
+    )
 
     // JUnit 5 dependency
-    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
-            "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    // To avoid compiler warnings about @API annotations in JUnit code
-    testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
+    testImplementation(
+        "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+        "org.junit.jupiter:junit-jupiter-params:${junitVersion}",
+        "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
+    )
 
     // JUnit 5 utilities
-    testCompile 'org.assertj:assertj-core:3.11.1',
-            'org.awaitility:awaitility:3.1.2',
-            'org.mockito:mockito-core:2.22.0',
-            // add missing functionality into mockito - MockitoExtension
-            'name.falgout.jeffrey.testing.junit5:mockito-extension:1.0.2'
+    testImplementation(
+        'org.assertj:assertj-core:3.11.1',
+        'org.awaitility:awaitility:4.2.0',
+        'org.mockito:mockito-junit-jupiter:5.3.1',
+    )
+}
+
+test {
+    useJUnitPlatform()
 }
 
 junitPlatform {

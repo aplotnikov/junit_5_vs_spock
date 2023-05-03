@@ -6,7 +6,6 @@ import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
 import io.github.aplotnikov.junit5_vs_spock.entities.Term;
 import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
 import io.vavr.control.Validation;
-import name.falgout.jeffrey.testing.junit.mockito.MockitoExtension;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -21,6 +20,8 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
 
 import java.math.BigDecimal;
 import java.util.stream.IntStream;
@@ -39,8 +40,10 @@ import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
+import static org.mockito.quality.Strictness.LENIENT;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = LENIENT)
 class LoanServiceTest {
 
     private LoanService service;

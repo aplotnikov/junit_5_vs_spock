@@ -132,4 +132,5 @@ class ClientSpec extends Specification {
         expect:
             throw new IllegalStateException('Test should not fail')
     }
+
 }

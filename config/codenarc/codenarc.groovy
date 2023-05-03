@@ -2,7 +2,9 @@ ruleset {
     ruleset('rulesets/basic.xml')
     ruleset('rulesets/braces.xml')
     ruleset('rulesets/concurrency.xml')
-    ruleset('rulesets/convention.xml')
+    ruleset('rulesets/convention.xml') {
+        CompileStatic(enabled: false)
+    }
     ruleset('rulesets/design.xml')
     ruleset('rulesets/dry.xml') {
         DuplicateStringLiteral(enabled: false)
@@ -11,7 +13,6 @@ ruleset {
     }
     ruleset('rulesets/enhanced.xml')
     ruleset('rulesets/formatting.xml') {
-        ClassJavadoc(enabled: false)
         SpaceAroundMapEntryColon(enabled: false)
         LineLength(enabled: false)
         Indentation(enabled: false)

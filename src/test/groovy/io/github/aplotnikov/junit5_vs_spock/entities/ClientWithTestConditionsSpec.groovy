@@ -77,4 +77,5 @@ class ClientWithTestConditionsSpec extends Specification {
                 secondName == clientSecondName
             }
     }
+
 }
