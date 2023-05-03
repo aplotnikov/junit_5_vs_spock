@@ -77,9 +77,9 @@ class ClientSpec extends Specification {
     void 'client should follow equal and hashcode convention'() {
         expect:
             EqualsVerifier.forClass(Client)
-                    .usingGetClass()
-                    .withIgnoredFields('status')
-                    .verify()
+                .usingGetClass()
+                .withIgnoredFields('status')
+                .verify()
     }
 
     void 'client should be not able to take a loan when he has unknown status'() {

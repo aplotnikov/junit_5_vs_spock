@@ -3,6 +3,8 @@ package io.github.aplotnikov.junit5_vs_spock.entities
 import static java.math.BigDecimal.TEN
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor
 
+import java.util.concurrent.ExecutorService
+
 import io.github.aplotnikov.junit5_vs_spock.annotations.Slow
 import spock.lang.Shared
 import spock.lang.Specification
@@ -10,8 +12,6 @@ import spock.lang.Subject
 import spock.lang.Timeout
 import spock.util.concurrent.AsyncConditions
 import spock.util.concurrent.PollingConditions
-
-import java.util.concurrent.ExecutorService
 
 class SlowClientSpec extends Specification {
 

@@ -1,11 +1,24 @@
 package io.github.aplotnikov.junit5_vs_spock.service;
 
-import io.github.aplotnikov.junit5_vs_spock.entities.Application;
-import io.github.aplotnikov.junit5_vs_spock.entities.DateUnit;
-import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
-import io.github.aplotnikov.junit5_vs_spock.entities.Term;
-import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
-import io.vavr.control.Validation;
+import static io.github.aplotnikov.junit5_vs_spock.entities.Term.days;
+import static io.github.aplotnikov.junit5_vs_spock.entities.Term.term;
+import static io.github.aplotnikov.junit5_vs_spock.entities.Term.years;
+import static java.lang.String.format;
+import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.ZERO;
+import static java.util.stream.IntStream.range;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+import static org.mockito.quality.Strictness.LENIENT;
+
+import java.math.BigDecimal;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
@@ -23,24 +36,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 
-import java.math.BigDecimal;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static io.github.aplotnikov.junit5_vs_spock.entities.Term.days;
-import static io.github.aplotnikov.junit5_vs_spock.entities.Term.term;
-import static io.github.aplotnikov.junit5_vs_spock.entities.Term.years;
-import static java.lang.String.format;
-import static java.math.BigDecimal.TEN;
-import static java.math.BigDecimal.ZERO;
-import static java.util.stream.IntStream.range;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static org.junit.jupiter.params.provider.EnumSource.Mode.EXCLUDE;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-import static org.mockito.quality.Strictness.LENIENT;
+import io.github.aplotnikov.junit5_vs_spock.entities.Application;
+import io.github.aplotnikov.junit5_vs_spock.entities.DateUnit;
+import io.github.aplotnikov.junit5_vs_spock.entities.Loan;
+import io.github.aplotnikov.junit5_vs_spock.entities.Term;
+import io.github.aplotnikov.junit5_vs_spock.repository.LoanRepository;
+import io.vavr.control.Validation;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = LENIENT)
@@ -54,8 +55,8 @@ class LoanServiceTest {
 
     private static Stream<Arguments> amountAndTerm() {
         return Stream.of(
-                Arguments.of(ZERO, days(30), "Application amount is less than zero. Provided amount is 0"),
-                Arguments.of(TEN, years(1), "Application term is bigger than 3 months. Provided term is 365 days")
+            Arguments.of(ZERO, days(30), "Application amount is less than zero. Provided amount is 0"),
+            Arguments.of(TEN, years(1), "Application term is bigger than 3 months. Provided term is 365 days")
         );
     }
 
@@ -76,7 +77,7 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
-                .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
+            .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
     }
 
     @DisplayName("Application should not pass validation (method int source) when")
@@ -89,7 +90,7 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
-                .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
+            .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
     }
 
     @DisplayName("Application should not pass validation (int value source) when")
@@ -102,7 +103,7 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
-                .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
+            .isEqualTo("Application amount is less than zero. Provided amount is " + amount);
     }
 
     @DisplayName("Application should not pass validation (enum source) when")
@@ -115,10 +116,10 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
-                .isEqualTo(
-                        format("Application term is bigger than 3 months. Provided term is %s days",
-                                application.getTerm().getDays())
-                );
+            .isEqualTo(
+                format("Application term is bigger than 3 months. Provided term is %s days",
+                    application.getTerm().getDays())
+            );
     }
 
     @DisplayName("Application should not pass validation (enum source with includes) when")
@@ -131,10 +132,10 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
-                .isEqualTo(
-                        format("Application term is bigger than 3 months. Provided term is %s days",
-                                application.getTerm().getDays())
-                );
+            .isEqualTo(
+                format("Application term is bigger than 3 months. Provided term is %s days",
+                    application.getTerm().getDays())
+            );
     }
 
     @DisplayName("Application should not pass validation (enum source with excludes) when")
@@ -147,10 +148,10 @@ class LoanServiceTest {
 
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
-                .isEqualTo(
-                        format("Application term is bigger than 3 months. Provided term is %s days",
-                                application.getTerm().getDays())
-                );
+            .isEqualTo(
+                format("Application term is bigger than 3 months. Provided term is %s days",
+                    application.getTerm().getDays())
+            );
     }
 
     @DisplayName("Application should not pass validation (method source with arguments) when")
@@ -168,8 +169,8 @@ class LoanServiceTest {
     @DisplayName("Application should not pass validation (cvs source) when")
     @ParameterizedTest(name = "{index} ==> amount is {0} and term is {1}")
     @CsvSource({
-            "0, 30, 'Application amount is less than zero. Provided amount is 0'",
-            "10, 1000, 'Application term is bigger than 3 months. Provided term is 1000 days'"
+        "0, 30, 'Application amount is less than zero. Provided amount is 0'",
+        "10, 1000, 'Application term is bigger than 3 months. Provided term is 1000 days'"
     })
     void shouldApplicationNotPassValidation(int amount, int term, String message) {
         Application application = new Application(BigDecimal.valueOf(amount), days(term));
@@ -196,16 +197,16 @@ class LoanServiceTest {
     @TestFactory
     Stream<DynamicTest> dynamicTests() {
         return range(-3, 0)
-                .mapToObj(BigDecimal::valueOf)
-                .map(amount -> new Application(amount, days(30)))
-                .map(application -> dynamicTest(
-                        "Application should not pass validation when amount is less than zero", () -> {
-                            Validation<String, Loan> result = service.create(application);
+            .mapToObj(BigDecimal::valueOf)
+            .map(amount -> new Application(amount, days(30)))
+            .map(application -> dynamicTest(
+                "Application should not pass validation when amount is less than zero", () -> {
+                    Validation<String, Loan> result = service.create(application);
 
-                            assertThat(result.isInvalid()).isTrue();
-                            assertThat(result.getError()).startsWith("Application amount is less than zero. Provided amount is ");
-                        })
-                );
+                    assertThat(result.isInvalid()).isTrue();
+                    assertThat(result.getError()).startsWith("Application amount is less than zero. Provided amount is ");
+                })
+            );
     }
 
     @Test

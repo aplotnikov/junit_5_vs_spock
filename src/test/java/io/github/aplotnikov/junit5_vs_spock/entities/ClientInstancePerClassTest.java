@@ -35,8 +35,8 @@ class ClientInstancePerClassTest {
     @DisplayName("Client should have correct first name and second name - assertAll default assertion")
     void shouldHaveCorrectFirstNameAndSecondName3() {
         assertAll(
-                () -> assertThat(client.getFirstName()).isEqualTo(FIRST_NAME),
-                () -> assertThat(client.getSecondName()).isEqualTo(SECOND_NAME)
+            () -> assertThat(client.getFirstName()).isEqualTo(FIRST_NAME),
+            () -> assertThat(client.getSecondName()).isEqualTo(SECOND_NAME)
         );
     }
 
@@ -60,8 +60,8 @@ class ClientInstancePerClassTest {
     @DisplayName("Client should not have enough money to take a loan")
     void shouldThrowIllegalStateException() {
         assertThatThrownBy(() -> client.takeLoan(TEN))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessage("Client does not have enough money");
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("Client does not have enough money");
     }
 
     @Test

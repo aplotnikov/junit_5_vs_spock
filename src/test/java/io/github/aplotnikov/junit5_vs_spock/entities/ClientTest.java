@@ -94,8 +94,8 @@ class ClientTest {
         @DisplayName("Client should have correct first name and second name - assertAll default assertion")
         void shouldHaveCorrectFirstNameAndSecondName3() {
             assertAll(
-                    () -> assertThat(client.getFirstName()).isEqualTo(FIRST_NAME),
-                    () -> assertThat(client.getSecondName()).isEqualTo(SECOND_NAME)
+                () -> assertThat(client.getFirstName()).isEqualTo(FIRST_NAME),
+                () -> assertThat(client.getSecondName()).isEqualTo(SECOND_NAME)
             );
         }
 
@@ -150,10 +150,10 @@ class ClientTest {
         @DisplayName("Client should be not able to take a loan - IllegalStateException is thrown")
         void shouldBeNotAbleToTakeALoan() {
             assertThatThrownBy(() -> client.takeLoan(TEN))
-                    .isInstanceOf(IllegalStateException.class)
-                    .hasMessage(
-                            "In order to take a lona client should have status identified. Current status is REGISTERED"
-                    );
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage(
+                    "In order to take a lona client should have status identified. Current status is REGISTERED"
+                );
         }
 
         @Nested
@@ -189,24 +189,24 @@ class ClientTest {
             void shouldThrowIllegalStateException2() {
                 Throwable exception = catchThrowable(() -> client.takeLoan(TEN));
                 assertThat(exception)
-                        .isInstanceOf(IllegalStateException.class)
-                        .hasMessage("Client does not have enough money");
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("Client does not have enough money");
             }
 
             @Test
             @DisplayName("Client should not have enough money to take a loan - assertj assertion")
             void shouldThrowIllegalStateException3() {
                 assertThatThrownBy(() -> client.takeLoan(TEN))
-                        .isInstanceOf(IllegalStateException.class)
-                        .hasMessage("Client does not have enough money");
+                    .isInstanceOf(IllegalStateException.class)
+                    .hasMessage("Client does not have enough money");
             }
 
             @Test
             @DisplayName("Client should not have enough money to take a loan - assertj assertion")
             void shouldThrowIllegalStateException4() {
                 assertThatExceptionOfType(IllegalStateException.class)
-                        .isThrownBy(() -> client.takeLoan(TEN))
-                        .withMessage("Client does not have enough money");
+                    .isThrownBy(() -> client.takeLoan(TEN))
+                    .withMessage("Client does not have enough money");
             }
 
             @Test
@@ -235,9 +235,9 @@ class ClientTest {
         @DisplayName("Entity should follow equal and hashcode convention")
         void shouldFollowEqualAndHashCodeConvention() {
             EqualsVerifier.forClass(Client.class)
-                    .usingGetClass()
-                    .withIgnoredFields("status")
-                    .verify();
+                .usingGetClass()
+                .withIgnoredFields("status")
+                .verify();
         }
     }
 }

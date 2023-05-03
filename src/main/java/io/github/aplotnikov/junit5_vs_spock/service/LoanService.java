@@ -29,17 +29,17 @@ public class LoanService {
 
     public Validation<String, Loan> create(Application application) {
         return combine(
-                validateAmount(application.getAmount()),
-                validateTerm(application.getTerm())
+            validateAmount(application.getAmount()),
+            validateTerm(application.getTerm())
         ).ap(Loan::new)
-                .map(repository::save)
-                .mapError(collectErrors());
+            .map(repository::save)
+            .mapError(collectErrors());
     }
 
     private Validation<String, BigDecimal> validateAmount(BigDecimal amount) {
         return Option.of(amount)
-                .filter(isGreaterThanZero())
-                .toValid("Application amount is less than zero. Provided amount is " + amount);
+            .filter(isGreaterThanZero())
+            .toValidation("Application amount is less than zero. Provided amount is " + amount);
     }
 
     private Predicate<BigDecimal> isGreaterThanZero() {
@@ -48,8 +48,8 @@ public class LoanService {
 
     private Validation<String, Term> validateTerm(Term term) {
         return Option.of(term)
-                .filter(MAX_TERM::isGreaterThan)
-                .toValid("Application term is bigger than 3 months. Provided term is " + term.getDays() + " days");
+            .filter(MAX_TERM::isGreaterThan)
+            .toValidation("Application term is bigger than 3 months. Provided term is " + term.getDays() + " days");
     }
 
     private Function<Seq<String>, String> collectErrors() {

@@ -1,6 +1,5 @@
 package io.github.aplotnikov.junit5_vs_spock.entities;
 
-import static java.lang.String.format;
 import static java.math.BigDecimal.TEN;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -61,7 +60,7 @@ public class Client {
     public void takeLoan(BigDecimal amount) {
         if (!isIdentified()) {
             throw new IllegalStateException(
-                    format("In order to take a lona client should have status identified. Current status is %s", status)
+                "In order to take a lona client should have status identified. Current status is %s".formatted(status)
             );
         }
 
@@ -94,8 +93,8 @@ public class Client {
 
         Client client = (Client) o;
         return Objects.equals(firstName, client.firstName)
-                && Objects.equals(secondName, client.secondName)
-                && Objects.equals(emails, client.emails);
+            && Objects.equals(secondName, client.secondName)
+            && Objects.equals(emails, client.emails);
     }
 
     @Override

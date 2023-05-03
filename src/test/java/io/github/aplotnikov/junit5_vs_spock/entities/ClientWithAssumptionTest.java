@@ -21,8 +21,8 @@ class ClientWithAssumptionTest {
     @DisplayName("Test should be skipped when OS isn't Windows - assumeTrue method")
     void shouldSkipTestWhenOsIsNotWindows() {
         assumeTrue(
-                System.getProperty("os.name").startsWith("Windows"),
-                () -> "Aborting test: test wasn't launched on Windows"
+            System.getProperty("os.name").startsWith("Windows"),
+            () -> "Aborting test: test wasn't launched on Windows"
         );
 
         assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
@@ -33,8 +33,8 @@ class ClientWithAssumptionTest {
     @DisplayName("Test should be skipped when OS isn't Mac OS - assumeTrue method")
     void shouldSkipTestWhenOsIsNotMacOs() {
         assumeTrue(
-                System.getProperty("os.name").startsWith("Mac OS"),
-                () -> "Aborting test: test wasn't launched on Mac OS"
+            System.getProperty("os.name").startsWith("Mac OS"),
+            () -> "Aborting test: test wasn't launched on Mac OS"
         );
 
         assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
@@ -45,8 +45,8 @@ class ClientWithAssumptionTest {
     @DisplayName("Test should be skipped when OS isn't Linux - assumeTrue method")
     void shouldSkipTestWhenOsIsNotLinux() {
         assumeTrue(
-                System.getProperty("os.name").startsWith("Linux"),
-                () -> "Aborting test: test wasn't launched on Linux"
+            System.getProperty("os.name").startsWith("Linux"),
+            () -> "Aborting test: test wasn't launched on Linux"
         );
 
         assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
@@ -57,11 +57,11 @@ class ClientWithAssumptionTest {
     @DisplayName("Part of test should be skipped when OS isn't Windows - assumingThat method")
     void shouldSkipTestWhenOsIsNotWindows2() {
         assumingThat(
-                System.getProperty("os.name").startsWith("Windows"),
-                () -> {
-                    System.out.println("Inner assertion is called");
-                    assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
-                }
+            System.getProperty("os.name").startsWith("Windows"),
+            () -> {
+                System.out.println("Inner assertion is called");
+                assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
+            }
         );
 
         System.out.println("Main assertion is called");
@@ -72,11 +72,11 @@ class ClientWithAssumptionTest {
     @DisplayName("Part of test should be skipped when OS isn't Mac OS - assumingThat method")
     void shouldSkipTestWhenOsIsNotMac2() {
         assumingThat(
-                System.getProperty("os.name").startsWith("Mac OS"),
-                () -> {
-                    System.out.println("Inner assertion is called");
-                    assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
-                }
+            System.getProperty("os.name").startsWith("Mac OS"),
+            () -> {
+                System.out.println("Inner assertion is called");
+                assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
+            }
         );
 
         System.out.println("Main assertion is called");
@@ -87,11 +87,11 @@ class ClientWithAssumptionTest {
     @DisplayName("Part of test should be skipped when OS isn't Linux - assumingThat method")
     void shouldSkipTestWhenOsIsNotLinux2() {
         assumingThat(
-                System.getProperty("os.name").startsWith("Linux"),
-                () -> {
-                    System.out.println("Inner assertion is called");
-                    assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
-                }
+            System.getProperty("os.name").startsWith("Linux"),
+            () -> {
+                System.out.println("Inner assertion is called");
+                assertThat(client.getFirstName()).isEqualTo(FIRST_NAME);
+            }
         );
 
         System.out.println("Main assertion is called");
