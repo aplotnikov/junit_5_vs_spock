@@ -1,6 +1,6 @@
 package io.github.aplotnikov.junit5.vs.spock.entities;
 
-public class Term {
+public final class Term {
 
     private final int days;
 

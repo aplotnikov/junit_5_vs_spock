@@ -5,12 +5,9 @@ plugins {
     id 'project-report'
     id 'build-dashboard'
 
-    id 'pmd'
-//    id 'checkstyle'
+    id 'checkstyle'
     id 'codenarc'
 }
-
-apply from: 'config/static-code-analyze.gradle'
 
 repositories {
     mavenCentral()
@@ -56,4 +53,9 @@ test {
         //excludeTags('slow')
         excludeTags('failed')
     }
+}
+
+codenarc {
+    sourceSets = [sourceSets.test]
+    configFile = rootProject.file 'config/codenarc/codenarc.groovy'
 }

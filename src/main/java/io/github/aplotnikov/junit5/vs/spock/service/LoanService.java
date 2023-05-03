@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import io.github.aplotnikov.junit5.vs.spock.entities.Loan;
 import io.github.aplotnikov.junit5.vs.spock.entities.Application;
+import io.github.aplotnikov.junit5.vs.spock.entities.Loan;
 import io.github.aplotnikov.junit5.vs.spock.entities.Term;
 import io.github.aplotnikov.junit5.vs.spock.repository.LoanRepository;
 import io.vavr.collection.Seq;
