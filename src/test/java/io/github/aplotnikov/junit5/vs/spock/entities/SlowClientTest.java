@@ -2,7 +2,6 @@ package io.github.aplotnikov.junit5.vs.spock.entities;
 
 import static java.math.BigDecimal.TEN;
 import static java.time.Duration.ofSeconds;
-import static java.util.Arrays.asList;
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,6 +10,7 @@ import static org.awaitility.Durations.TWO_SECONDS;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -25,7 +25,7 @@ class SlowClientTest {
 
     private static final String SECOND_NAME = "Plotnikov";
 
-    private Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
+    private Client client = new Client(FIRST_NAME, SECOND_NAME, List.of("test@gmail.com", "test2@gmail.com"));
 
     @Test
     @DisplayName("Client should pay in max 2 seconds")

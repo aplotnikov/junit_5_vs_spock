@@ -2,12 +2,13 @@ package io.github.aplotnikov.junit5.vs.spock.entities;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
+
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class ClientInstancePerClassTest {
 
     private static final String SECOND_NAME = "Plotnikov";
 
-    private Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
+    private Client client = new Client(FIRST_NAME, SECOND_NAME, List.of("test@gmail.com", "test2@gmail.com"));
 
     @Test
     @DisplayName("Client should have status unknown after creation")

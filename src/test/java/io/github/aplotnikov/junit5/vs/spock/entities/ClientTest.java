@@ -2,7 +2,6 @@ package io.github.aplotnikov.junit5.vs.spock.entities;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -12,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -33,7 +34,7 @@ class ClientTest {
 
     private static final String SECOND_NAME = "Plotnikov";
 
-    private final Client client = new Client(FIRST_NAME, SECOND_NAME, asList("test@gmail.com", "test2@gmail.com"));
+    private final Client client = new Client(FIRST_NAME, SECOND_NAME, List.of("test@gmail.com", "test2@gmail.com"));
 
     @BeforeAll
     static void setUpClass() {
@@ -115,13 +116,13 @@ class ClientTest {
         @Test
         @DisplayName("Client should have correct e-mail addresses")
         void shouldHaveCorrectEmails() {
-            assertLinesMatch(asList("test@gmail.com", "test2@gmail.com"), client.getEmails());
+            assertLinesMatch(List.of("test@gmail.com", "test2@gmail.com"), client.getEmails());
         }
 
         @Test
         @DisplayName("Client should have correct e-mail addresses - assertj")
         void shouldHaveCorrectEmails2() {
-            assertThat(client.getEmails()).isEqualTo(asList("test@gmail.com", "test2@gmail.com"));
+            assertThat(client.getEmails()).isEqualTo(List.of("test@gmail.com", "test2@gmail.com"));
         }
     }
 
