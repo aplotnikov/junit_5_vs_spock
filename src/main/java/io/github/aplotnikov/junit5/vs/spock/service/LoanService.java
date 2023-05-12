@@ -29,8 +29,8 @@ public class LoanService {
 
     public Validation<String, Loan> create(Application application) {
         return combine(
-            validateAmount(application.getAmount()),
-            validateTerm(application.getTerm())
+            validateAmount(application.amount()),
+            validateTerm(application.term())
         ).ap(Loan::new)
             .map(repository::save)
             .mapError(collectErrors());

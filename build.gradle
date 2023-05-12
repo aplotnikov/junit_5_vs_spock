@@ -25,7 +25,7 @@ dependencies {
         'org.codehaus.groovy:groovy:3.0.17',
         'org.spockframework:spock-core:2.3-groovy-3.0',
 
-        platform("org.junit:junit-bom:5.9.3"),
+        platform('org.junit:junit-bom:5.9.3'),
         'org.junit.jupiter:junit-jupiter-api',
         'org.junit.jupiter:junit-jupiter-params',
         'org.junit.jupiter:junit-jupiter-engine',

@@ -105,7 +105,7 @@ class LoanServiceTest {
         assertThat(result.getError())
             .isEqualTo(
                 format("Application term is bigger than 3 months. Provided term is %s days",
-                    application.getTerm().getDays())
+                    application.term().getDays())
             );
     }
 
@@ -161,7 +161,7 @@ class LoanServiceTest {
         assertThat(result.getError())
             .isEqualTo(
                 format("Application term is bigger than 3 months. Provided term is %s days",
-                    application.getTerm().getDays())
+                    application.term().getDays())
             );
     }
 
@@ -177,7 +177,7 @@ class LoanServiceTest {
         assertThat(result.getError())
             .isEqualTo(
                 format("Application term is bigger than 3 months. Provided term is %s days",
-                    application.getTerm().getDays())
+                    application.term().getDays())
             );
     }
 
@@ -213,8 +213,8 @@ class LoanServiceTest {
     @DisplayName("Application should pass validation")
     void shouldApplicationPassValidationAndSave(@Mock Application application) {
         // given
-        given(application.getAmount()).willReturn(TEN);
-        given(application.getTerm()).willReturn(days(30));
+        given(application.amount()).willReturn(TEN);
+        given(application.term()).willReturn(days(30));
 
         //when
         Validation<String, Loan> result = service.create(application);
@@ -222,6 +222,8 @@ class LoanServiceTest {
         //then
         assertThat(result.isValid()).isTrue();
 
-        assertThat(result.get()).isEqualToComparingOnlyGivenFields(application, "amount", "term");
+        assertThat(result.get())
+            .hasFieldOrPropertyWithValue("amount", application.amount())
+            .hasFieldOrPropertyWithValue("term", application.term());
     }
 }
