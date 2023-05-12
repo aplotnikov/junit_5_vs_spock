@@ -3,7 +3,6 @@ package io.github.aplotnikov.junit5.vs.spock.service;
 import static io.github.aplotnikov.junit5.vs.spock.entities.Term.days;
 import static io.github.aplotnikov.junit5.vs.spock.entities.Term.term;
 import static io.github.aplotnikov.junit5.vs.spock.entities.Term.years;
-import static java.lang.String.format;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static java.util.stream.IntStream.range;
@@ -104,8 +103,7 @@ class LoanServiceTest {
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
             .isEqualTo(
-                format("Application term is bigger than 3 months. Provided term is %s days",
-                    application.term().getDays())
+                "Application term is bigger than 3 months. Provided term is %s days".formatted(application.term().getDays())
             );
     }
 
@@ -160,8 +158,7 @@ class LoanServiceTest {
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
             .isEqualTo(
-                format("Application term is bigger than 3 months. Provided term is %s days",
-                    application.term().getDays())
+                "Application term is bigger than 3 months. Provided term is %s days".formatted(application.term().getDays())
             );
     }
 
@@ -176,8 +173,7 @@ class LoanServiceTest {
         assertThat(result.isInvalid()).isTrue();
         assertThat(result.getError())
             .isEqualTo(
-                format("Application term is bigger than 3 months. Provided term is %s days",
-                    application.term().getDays())
+                "Application term is bigger than 3 months. Provided term is %s days".formatted(application.term().getDays())
             );
     }
 
