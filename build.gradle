@@ -36,7 +36,7 @@ dependencies {
     )
 }
 
-test {
+tasks.withType(Test).configureEach {
     useJUnitPlatform {
         //Configuration of enabling and disabling tests by tag name
         //includeTags('fast', 'smoke')
@@ -45,7 +45,6 @@ test {
     }
 }
 
-codenarc {
-    sourceSets = [sourceSets.test]
+tasks.withType(CodeNarc).configureEach {
     configFile = rootProject.file 'config/codenarc/codenarc.groovy'
 }
